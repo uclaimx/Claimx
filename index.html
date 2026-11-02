@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ClaimX | National Consumer Grievance & Automated Escalation Portal</title>
+    <!-- Tailwind CSS CDN for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              nicBlue: '#0A2540',
+              sarkariBlue: '#1D4ED8',
+              recoveryGreen: '#059669',
+              alertRed: '#DC2626',
+              portalGray: '#F1F5F9'
+            }
+          }
+        }
+      }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+    <style>
+      body { font-family: 'Inter', sans-serif; }
+      .mono-text { font-family: 'JetBrains Mono', monospace; }
+    </style>
+</head>
+<body class="bg-portalGray text-slate-900 min-h-screen flex flex-col justify-between">
+
+    <div>
+        <!-- Top Utility Strip -->
+        <div class="bg-[#061527] text-slate-300 text-xs py-2 px-4 flex flex-col sm:flex-row justify-between items-center border-b border-slate-800">
+            <div class="flex items-center gap-2">
+                <span class="text-emerald-400 font-semibold">🇮🇳</span>
+                <span>National Consumer Grievance & Automated Escalation Portal (Private Tech Initiative)</span>
+            </div>
+            <div class="mt-1 sm:mt-0 space-x-4">
+                <span>Language: <strong class="text-white">English</strong> | हिंदी</span>
+                <span>Helpdesk: <a href="mailto:desk@claimx.in" class="underline text-blue-300">desk@claimx.in</a></span>
+            </div>
+        </div>
+
+        <!-- Main Header -->
+        <header class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
+            <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+                <div class="flex items-center space-x-3">
+                    <div class="bg-nicBlue text-white p-2 rounded font-bold text-xl tracking-wider">🛡️</div>
+                    <div>
+                        <h1 class="text-xl font-bold text-nicBlue tracking-tight">CLAIM<span class="text-recoveryGreen">X</span></h1>
+                        <p class="text-[10px] text-slate-500 uppercase tracking-wider font-medium">Autonomous Consumer Defense Engine</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <a href="#track" class="hidden sm:inline-block text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 px-3 py-2 rounded transition">🔍 Track Docket</a>
+                    <a href="#intake" class="text-xs font-semibold text-white bg-recoveryGreen hover:bg-emerald-700 px-4 py-2 rounded transition shadow-sm">⚡ Register Grievance</a>
+                </div>
+            </div>
+            <!-- Live Ticker Bar -->
+            <div class="bg-amber-50 border-t border-amber-200 text-amber-900 text-xs py-1.5 px-4 overflow-hidden whitespace-nowrap">
+                <div class="inline-block animate-marquee font-medium">
+                    🔴 LIVE UPDATE: E-Commerce platforms must acknowledge Nodal grievances within 48 hours under Consumer Protection Rules. &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp; ⚡ 1,420+ Dockets generated this month. &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp; 🛡️ Zero Legal Hassle, Direct Nodal Escalation.
+                </div>
+            </div>
+        </header>
+
+        <!-- Hero Section & Intake Module -->
+        <main class="max-w-4xl mx-auto px-4 py-8 sm:py-12">
+            
+            <div class="text-center mb-8">
+                <span class="bg-blue-100 text-sarkariBlue text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wide">Automated Pre-Litigation Framework</span>
+                <h2 class="text-2xl sm:text-4xl font-extrabold text-nicBlue mt-3 tracking-tight">
+                    Company Denying Refund or Bank Debited Falsely? <br class="hidden sm:inline">Stop Begging Customer Care.
+                </h2>
+                <p class="text-slate-600 mt-2 text-sm sm:text-base max-w-2xl mx-auto">
+                    Upload your proof. ClaimX AI maps applicable Indian consumer laws and dispatches a formal legal escalation notice directly to corporate Nodal Officers in 60 seconds.
+                </p>
+            </div>
+
+            <!-- Central Action Card -->
+            <div class="bg-white rounded-xl shadow-md border border-slate-200 overflow-hidden" id="intake">
+                <div class="bg-nicBlue text-white px-6 py-4 flex justify-between items-center">
+                    <h3 class="font-semibold text-sm sm:text-base flex items-center gap-2">
+                        <span>📝</span> Step 1: Secure Grievance Intake Form
+                    </h3>
+                    <span class="text-xs text-slate-300 mono-text">Encrypted Protocol</span>
+                </div>
+
+                <form class="p-6 sm:p-8 space-y-6" onsubmit="event.preventDefault(); alert('Redirecting to AI Smart Scan engine...');">
+                    
+                    <!-- Category Selection -->
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">1. Select Dispute Category</label>
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                            <label class="border border-slate-200 rounded-lg p-3 text-center cursor-pointer hover:border-sarkariBlue hover:bg-blue-50 transition flex flex-col items-center justify-center gap-1">
+                                <input type="radio" name="category" value="ecommerce" class="sr-only peer" checked>
+                                <span class="text-xl">🛒</span>
+                                <span class="text-xs font-semibold text-slate-700 peer-checked:text-sarkariBlue">E-Commerce</span>
+                            </label>
+                            <label class="border border-slate-200 rounded-lg p-3 text-center cursor-pointer hover:border-sarkariBlue hover:bg-blue-50 transition flex flex-col items-center justify-center gap-1">
+                                <input type="radio" name="category" value="food" class="sr-only peer">
+                                <span class="text-xl">🍔</span>
+                                <span class="text-xs font-semibold text-slate-700 peer-checked:text-sarkariBlue">Food & Quick</span>
+                            </label>
+                            <label class="border border-slate-200 rounded-lg p-3 text-center cursor-pointer hover:border-sarkariBlue hover:bg-blue-50 transition flex flex-col items-center justify-center gap-1">
+                                <input type="radio" name="category" value="banking" class="sr-only peer">
+                                <span class="text-xl">🏦</span>
+                                <span class="text-xs font-semibold text-slate-700 peer-checked:text-sarkariBlue">Banking & UPI</span>
+                            </label>
+                            <label class="border border-slate-200 rounded-lg p-3 text-center cursor-pointer hover:border-sarkariBlue hover:bg-blue-50 transition flex flex-col items-center justify-center gap-1">
+                                <input type="radio" name="category" value="warranty" class="sr-only peer">
+                                <span class="text-xl">📱</span>
+                                <span class="text-xs font-semibold text-slate-700 peer-checked:text-sarkariBlue">Warranty/Other</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Target Company & Amount -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">2. Target Company / Bank Name *</label>
+                            <select class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-sarkariBlue focus:outline-none bg-white">
+                                <option>Flipkart Internet Pvt Ltd</option>
+                                <option>Amazon India</option>
+                                <option>Zomato Media Pvt Ltd</option>
+                                <option>Swiggy (Bundl Technologies)</option>
+                                <option>Blinkit (Grofers)</option>
+                                <option>State Bank of India (SBI)</option>
+                                <option>HDFC Bank</option>
+                                <option>PhonePe / GooglePay / Paytm</option>
+                                <option>Other Brand / Bank</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">3. Disputed Amount (INR) *</label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-500 font-semibold">₹</span>
+                                <input type="number" placeholder="e.g. 1499" class="w-full border border-slate-300 rounded-lg pl-8 pr-3 py-2 text-sm focus:ring-2 focus:ring-sarkariBlue focus:outline-none" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- File Upload Box -->
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">4. Upload Evidence (Screenshot of Order / Chat / Bank SMS) *</label>
+                        <div class="border-2 border-dashed border-slate-300 rounded-xl p-6 text-center hover:bg-slate-50 transition cursor-pointer flex flex-col items-center justify-center">
+                            <span class="text-3xl mb-2">📸</span>
+                            <p class="text-xs font-semibold text-slate-700">Click to upload or drag and drop screenshot</p>
+                            <p class="text-[10px] text-slate-400 mt-1">PNG, JPG, or PDF up to 5MB (OCR Automated Extraction)</p>
+                            <input type="file" class="hidden" accept="image/*,.pdf">
+                        </div>
+                    </div>
+
+                    <!-- Issue Summary Text -->
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">5. Brief Description of Issue (Optional)</label>
+                        <textarea rows="2" placeholder="e.g. Received damaged product, refund request rejected by support bot on 2nd Nov." class="w-full border border-slate-300 rounded-lg p-3 text-sm focus:ring-2 focus:ring-sarkariBlue focus:outline-none"></textarea>
+                    </div>
+
+                    <!-- Consent Checkbox -->
+                    <div class="flex items-start gap-3 bg-slate-50 p-3 rounded-lg border border-slate-200">
+                        <input type="checkbox" id="consent" class="mt-1 h-4 w-4 text-sarkariBlue rounded border-slate-300 focus:ring-sarkariBlue" required>
+                        <label for="consent" class="text-xs text-slate-600 leading-relaxed">
+                            I authorize ClaimX to structure my dispute data and dispatch formal automated notifications to the respective corporate grievance/nodal desk on my behalf. I understand ClaimX is an independent tech platform, not a law firm.
+                        </label>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="w-full bg-recoveryGreen hover:bg-emerald-700 text-white font-bold py-3.5 px-6 rounded-xl transition shadow-md flex items-center justify-center gap-2 text-sm sm:text-base">
+                        <span>⚙️ Scan Evidence & Generate Official Docket</span>
+                        <span>→</span>
+                    </button>
+
+                </form>
+            </div>
+
+            <!-- Trust Badges Section -->
+            <div class="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
+                <div class="bg-white p-4 rounded-lg border border-slate-200 shadow-sm">
+                    <div class="text-xl mb-1">⚡</div>
+                    <h4 class="font-bold text-xs uppercase text-nicBlue">60-Second Dispatch</h4>
+                    <p class="text-xs text-slate-500 mt-1">Instant server-side delivery to verified Nodal Officer emails.</p>
+                </div>
+                <div class="bg-white p-4 rounded-lg border border-slate-200 shadow-sm">
+                    <div class="text-xl mb-1">🔒</div>
+                    <h4 class="font-bold text-xs uppercase text-nicBlue">DPDPA 2023 Compliant</h4>
+                    <p class="text-xs text-slate-500 mt-1">Your evidence and personal records are encrypted and secured.</p>
+                </div>
+                <div class="bg-white p-4 rounded-lg border border-slate-200 shadow-sm">
+                    <div class="text-xl mb-1">📜</div>
+                    <h4 class="font-bold text-xs uppercase text-nicBlue">Statutory Compliance</h4>
+                    <p class="text-xs text-slate-500 mt-1">Built strictly on Consumer Protection Act and RBI TAT rules.</p>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-nicBlue text-slate-400 text-xs py-8 px-4 mt-12 border-t border-slate-800">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="text-center md:text-left">
+                <p class="font-bold text-white tracking-wide">CLAIMX TECHNOLOGIES</p>
+                <p class="text-[11px] mt-1">Independent AI-Assisted Consumer Grievance & Documentation Routing Engine.</p>
+            </div>
+            <div class="flex flex-wrap justify-center gap-4 text-slate-300">
+                <a href="#" class="hover:underline">Terms of Service</a>
+                <a href="#" class="hover:underline">Privacy Policy</a>
+                <a href="#" class="hover:underline">Refund Policy</a>
+                <a href="#" class="hover:underline">Disclaimer</a>
+            </div>
+        </div>
+        <div class="max-w-6xl mx-auto mt-6 pt-4 border-t border-slate-800 text-center text-[10px] text-slate-500">
+            Disclaimer: ClaimX is a technology facilitator and does not provide formal legal representation or guarantee financial outcomes from third-party enterprises.
+        </div>
+    </footer>
+
+</body>
+</html>
