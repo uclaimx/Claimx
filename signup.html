@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Citizen Registration | ClaimX Redressal Portal</title>
+    <title>Citizen Registration & Login | ClaimX National Redressal Portal</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
@@ -38,61 +38,76 @@
 <body class="text-slate-900 min-h-screen flex flex-col justify-between">
 
     <div>
-        <!-- 1. OFFICIAL HEADER (Matches Index Page) -->
+        <!-- 1. TOP UTILITY STRIP -->
+        <div class="bg-[#2B0909] text-slate-200 text-[11px] py-1.5 px-4 border-b border-postDark">
+            <div class="max-w-4xl mx-auto flex justify-between items-center">
+                <div class="flex items-center gap-2">
+                    <span class="font-bold text-amber-400">🇮🇳</span>
+                    <span data-en="National Consumer Grievance & Automated Escalation System" data-hi="राष्ट्रीय उपभोक्ता शिकायत एवं स्वचालित निवारण प्रणाली">National Consumer Grievance & Automated Escalation System</span>
+                </div>
+                <div class="hidden sm:flex items-center gap-4">
+                    <span>Helpdesk: <strong class="text-white">desk@claimx.in</strong></span>
+                    <span class="text-emerald-400 font-semibold">● System Online</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. OFFICIAL INDIA POST STYLE HEADER -->
         <header class="bg-white px-4 pt-3 pb-2.5 border-b border-slate-200 sticky top-0 z-40 shadow-sm">
             <div class="max-w-4xl mx-auto flex justify-between items-center">
                 <a href="index.html" class="flex items-center gap-2.5">
-                    <!-- Custom SVG Shield Pillar Icon -->
-                    <div class="w-9 h-11 flex items-center justify-center text-slate-800 shrink-0">
-                        <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+                    <!-- Pure SVG Official Pillar Shield -->
+                    <div class="w-9 h-11 flex items-center justify-center text-postMaroon shrink-0">
+                        <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 3L3 7v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-9-4z"/>
                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v8M8 11h8"/>
                         </svg>
                     </div>
                     <div class="leading-tight">
                         <p class="text-[11px] text-slate-600 font-medium" data-en="Consumer Rights Protection Initiative" data-hi="उपभोक्ता अधिकार संरक्षण पहल">Consumer Rights Protection Initiative</p>
-                        <p class="text-[11px] text-slate-600 font-medium" data-en="National Grievance Routing System" data-hi="राष्ट्रीय शिकायत निवारण प्रणाली">National Grievance Routing System</p>
+                        <p class="text-[11px] text-slate-600 font-medium" data-en="National Grievance Routing Portal" data-hi="राष्ट्रीय शिकायत निवारण पोर्टल">National Grievance Routing Portal</p>
                         <h1 class="text-xs sm:text-sm font-extrabold text-slate-900 tracking-tight" data-en="Department of ClaimX Redressal" data-hi="क्लेम-एक्स शिकायत निवारण विभाग">Department of ClaimX Redressal</h1>
                     </div>
                 </a>
 
-                <!-- Right Utility Icons -->
                 <div class="flex items-center space-x-3 text-postMaroon">
-                    <button onclick="toggleLanguage()" title="Switch Hindi/English" class="px-2 py-1 border border-postMaroon/30 bg-postLight rounded font-bold text-xs flex items-center gap-1 hover:bg-postMaroon hover:text-white transition">
+                    <button type="button" onclick="window.toggleLanguage()" title="Switch Hindi/English" class="px-2.5 py-1 border border-postMaroon/30 bg-postLight rounded font-bold text-xs flex items-center gap-1 hover:bg-postMaroon hover:text-white transition">
                         <span>अ/A</span>
                         <span id="langBadge" class="text-[10px]">HI</span>
                     </button>
-                    <a href="index.html" class="text-xs font-bold text-slate-700 hover:text-postMaroon flex items-center gap-1">
+                    <a href="index.html" class="text-xs font-bold text-slate-700 hover:text-postMaroon flex items-center gap-1 border border-slate-200 px-2.5 py-1 rounded bg-slate-50">
                         <span>&larr;</span>
-                        <span data-en="Home" data-hi="होम">Home</span>
+                        <span data-en="Portal Home" data-hi="पोर्टल होम">Portal Home</span>
                     </a>
                 </div>
             </div>
         </header>
 
-        <!-- Breadcrumb Strip -->
+        <!-- 3. BREADCRUMB BAR -->
         <div class="bg-[#EAEAEA] border-b border-slate-300 py-2 px-4 text-xs">
             <div class="max-w-4xl mx-auto flex items-center justify-between text-slate-600 font-medium">
                 <div>
-                    <a href="index.html" class="hover:underline text-postMaroon font-semibold" data-en="Portal Home" data-hi="पोर्टल होम">Portal Home</a>
+                    <a href="index.html" class="hover:underline text-postMaroon font-semibold" data-en="Home" data-hi="होम">Home</a>
                     <span class="mx-1.5">/</span>
-                    <span class="text-slate-800 font-bold" data-en="Citizen Authentication & e-Docket Signup" data-hi="नागरिक पंजीकरण एवं लॉगिन">Citizen Authentication & e-Docket Signup</span>
+                    <span class="text-slate-800 font-bold" data-en="Citizen e-Docket Registration & Login (Form CLX-01)" data-hi="नागरिक ई-डॉकेट पंजीकरण एवं लॉगिन (फॉर्म CLX-01)">Citizen e-Docket Registration & Login (Form CLX-01)</span>
                 </div>
-                <span class="hidden sm:inline-block text-[11px] text-postMaroon font-bold">🔒 256-Bit Encrypted Session</span>
+                <span class="hidden sm:inline-block text-[11px] text-postMaroon font-bold">🔒 256-Bit SSL & DPDPA Compliant</span>
             </div>
         </div>
 
-        <!-- 2. MAIN REGISTRATION & LOGIN CARD -->
-        <main class="max-w-xl mx-auto px-4 py-7 sm:py-10">
+        <!-- 4. MAIN AUTHENTICATION CONTAINER -->
+        <main class="max-w-xl mx-auto px-4 py-6 sm:py-9">
             
-            <!-- Top Official Banner Strip -->
+            <!-- Official Form Header Card -->
             <div class="bg-gradient-to-r from-[#F9F6F0] to-[#EFECE6] border border-slate-300 border-l-4 border-l-postMaroon rounded-t-xl p-4 flex items-center justify-between">
                 <div>
-                    <span class="text-[10px] font-extrabold uppercase tracking-widest text-postMaroon bg-white px-2 py-0.5 rounded border border-postMaroon/20">FORM CLX-01</span>
-                    <h2 class="text-base sm:text-lg font-extrabold text-postMaroon mt-1" data-en="Citizen Grievance Account" data-hi="उपभोक्ता शिकायत खाता पंजीकरण">Citizen Grievance Account</h2>
-                    <p class="text-[11px] text-slate-600" data-en="Mandatory for tracking 48-hour Nodal SLA & downloading legal PDF dossiers." data-hi="48-घंटे के नोडल टाइमर को ट्रैक करने और लीगल PDF डाउनलोड करने के लिए आवश्यक।">Mandatory for tracking 48-hour Nodal SLA & downloading legal PDF dossiers.</p>
+                    <div class="flex items-center gap-2">
+                        <span class="text-[10px] font-extrabold uppercase tracking-widest text-postMaroon bg-white px-2 py-0.5 rounded border border-postMaroon/20">OFFICIAL CITIZEN PORTAL</span>
+                        <span class="text-[10px] font-bold text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded">VERIFIED ACCESS</span>
+                    </div>
+                    <h2 class="text-base sm:text-lg font-extrabold text-postMaroon mt-1.5" data-en="Citizen Grievance Account" data-hi="उपभोक्ता शिकायत खाता पंजीकरण">Citizen Grievance Account</h2>
+                    <p class="text-[11px] text-slate-600" data-en="Required for 48-hour Nodal SLA tracking & downloading certified legal PDF dossiers." data-hi="48-घंटे के नोडल टाइमर को ट्रैक करने और आधिकारिक लीगल PDF डाउनलोड करने के लिए अनिवार्य।">Required for 48-hour Nodal SLA tracking & downloading certified legal PDF dossiers.</p>
                 </div>
-                <!-- Pure SVG Stamp Icon -->
                 <div class="w-11 h-11 rounded-full bg-white border border-postMaroon/30 flex items-center justify-center text-postMaroon shrink-0 shadow-sm">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
@@ -100,199 +115,304 @@
                 </div>
             </div>
 
-            <!-- Card Container -->
+            <!-- Main Form Box -->
             <div class="bg-white border border-t-0 border-slate-300 rounded-b-xl shadow-md overflow-hidden">
                 
-                <!-- Mode Switch Tabs (New Signup vs Existing Login) -->
+                <!-- Navigation Tabs -->
                 <div class="grid grid-cols-2 border-b border-slate-200 bg-slate-100 text-xs sm:text-sm font-bold">
-                    <button id="tabSignup" onclick="switchTab('signup')" class="py-3.5 text-center border-b-4 border-postMaroon bg-white text-postMaroon transition">
-                        <span data-en="📝 New Citizen Signup" data-hi="📝 नया पंजीकरण (Signup)">📝 New Citizen Signup</span>
+                    <button type="button" id="tabSignup" onclick="window.switchTab('signup')" class="py-3.5 text-center border-b-4 border-postMaroon bg-white text-postMaroon transition">
+                        <span data-en="📝 New Citizen Registration" data-hi="📝 नया नागरिक पंजीकरण">📝 New Citizen Registration</span>
                     </button>
-                    <button id="tabLogin" onclick="switchTab('login')" class="py-3.5 text-center border-b-4 border-transparent text-slate-600 hover:text-postMaroon transition">
-                        <span data-en="🔑 Registered Login" data-hi="🔑 लॉगिन करें (Login)">🔑 Registered Login</span>
+                    <button type="button" id="tabLogin" onclick="window.switchTab('login')" class="py-3.5 text-center border-b-4 border-transparent text-slate-600 hover:text-postMaroon transition">
+                        <span data-en="🔑 Registered Citizen Login" data-hi="🔑 पंजीकृत नागरिक लॉगिन">🔑 Registered Citizen Login</span>
                     </button>
                 </div>
 
-                <!-- A. SIGNUP FORM -->
-                <form id="signupForm" class="p-5 sm:p-7 space-y-4" onsubmit="handleSignup(event)">
+                <!-- Dynamic Status / Error Alert Banner -->
+                <div id="statusAlert" class="hidden mx-5 mt-5 p-3 rounded text-xs font-semibold border"></div>
+
+                <!-- ========================================== -->
+                <!-- A. CITIZEN SIGNUP FORM (REAL FIREBASE DB)  -->
+                <!-- ========================================== -->
+                <form id="signupForm" class="p-5 sm:p-7 space-y-4">
                     
-                    <!-- Note Box -->
                     <div class="bg-postLight border border-postMaroon/20 rounded p-2.5 text-[11px] text-postText flex items-start gap-2">
                         <span class="font-bold text-sm leading-none">ℹ️</span>
-                        <span data-en="Important: Please enter the same Email ID and Mobile Number that is registered with your Bank or E-Commerce app for seamless Nodal verification." data-hi="महत्वपूर्ण: कृपया वही मोबाइल नंबर और ईमेल दर्ज करें जो आपके बैंक या शॉपिंग ऐप में रजिस्टर्ड है, ताकि नोडल वेरिफिकेशन तुरंत हो सके।">
-                            Important: Please enter the same Email ID and Mobile Number that is registered with your Bank or E-Commerce app for seamless Nodal verification.
+                        <span data-en="Mandatory Instruction: Enter the exact Name, Mobile Number, and Email ID registered with your Bank or E-Commerce platform for official Nodal matching." data-hi="अनिवार्य निर्देश: कृपया वही नाम, मोबाइल नंबर और ईमेल दर्ज करें जो आपके बैंक या शॉपिंग ऐप में रजिस्टर्ड है, ताकि नोडल वेरिफिकेशन में कोई बाधा न आए।">
+                            Mandatory Instruction: Enter the exact Name, Mobile Number, and Email ID registered with your Bank or E-Commerce platform for official Nodal matching.
                         </span>
                     </div>
 
-                    <!-- 1. Full Name -->
+                    <!-- 1. Full Legal Name -->
                     <div>
-                        <label class="block text-xs font-bold text-slate-700 uppercase mb-1" data-en="1. Full Legal Name (As per Bank / Order Invoice) *" data-hi="1. पूरा नाम (बैंक या बिल के अनुसार) *">1. Full Legal Name (As per Bank / Order Invoice) *</label>
-                        <input type="text" id="fullName" required placeholder="e.g., Rajesh Kumar Sharma" class="w-full border border-slate-300 border-b-2 border-b-postMaroon rounded px-3 py-2.5 text-xs sm:text-sm focus:outline-none">
+                        <label class="block text-xs font-bold text-slate-700 uppercase mb-1" data-en="1. Full Legal Name (As per Bank / Order Invoice) *" data-hi="1. पूरा कानूनी नाम (बैंक या बिल के अनुसार) *">1. Full Legal Name (As per Bank / Order Invoice) *</label>
+                        <input type="text" id="fullName" required placeholder="e.g., Akash Kumar Sharma" class="w-full border border-slate-300 border-b-2 border-b-postMaroon rounded px-3 py-2.5 text-xs sm:text-sm focus:outline-none focus:bg-postLight/30">
                     </div>
 
-                    <!-- 2. Mobile Number + Send OTP Button -->
-                    <div>
-                        <label class="block text-xs font-bold text-slate-700 uppercase mb-1" data-en="2. Mobile Number (For Docket SMS & WhatsApp Alerts) *" data-hi="2. मोबाइल नंबर (OTP और ट्रैकिंग अलर्ट के लिए) *">2. Mobile Number (For Docket SMS & WhatsApp Alerts) *</label>
-                        <div class="flex gap-2">
-                            <div class="flex items-center bg-slate-100 border border-slate-300 border-b-2 border-b-postMaroon rounded px-3 text-xs sm:text-sm font-bold text-slate-700">
-                                +91
+                    <!-- 2. Mobile Number & Gender -->
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <div class="sm:col-span-2">
+                            <label class="block text-xs font-bold text-slate-700 uppercase mb-1" data-en="2. 10-Digit Mobile Number *" data-hi="2. 10-अंकों का मोबाइल नंबर *">2. 10-Digit Mobile Number *</label>
+                            <div class="flex">
+                                <span class="inline-flex items-center bg-slate-100 border border-r-0 border-slate-300 border-b-2 border-b-postMaroon rounded-l px-3 text-xs sm:text-sm font-bold text-slate-700">+91</span>
+                                <input type="tel" id="mobileNo" maxlength="10" pattern="[6-9][0-9]{9}" required placeholder="9876543210" class="w-full border border-slate-300 border-b-2 border-b-postMaroon rounded-r px-3 py-2.5 text-xs sm:text-sm focus:outline-none">
                             </div>
-                            <input type="tel" id="mobileNo" maxlength="10" pattern="[0-9]{10}" required placeholder="10-digit mobile number" class="flex-1 border border-slate-300 border-b-2 border-b-postMaroon rounded px-3 py-2.5 text-xs sm:text-sm focus:outline-none">
-                            <button type="button" onclick="triggerOTP()" id="otpBtn" class="bg-slate-800 hover:bg-black text-white font-bold text-xs px-3.5 py-2 rounded transition shrink-0">
-                                <span data-en="Get OTP" data-hi="OTP भेजें">Get OTP</span>
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Hidden OTP Verification Drawer -->
-                    <div id="otpSection" class="hidden bg-emerald-50/70 border border-emerald-300 rounded-lg p-3.5 space-y-2">
-                        <div class="flex justify-between items-center">
-                            <label class="text-xs font-bold text-emerald-900" data-en="Enter 4-Digit Verification OTP *" data-hi="4-अंकों का ओटीपी (OTP) दर्ज करें *">Enter 4-Digit Verification OTP *</label>
-                            <span class="text-[11px] font-semibold text-emerald-700">Demo OTP: <strong>1234</strong></span>
-                        </div>
-                        <div class="flex gap-2">
-                            <input type="text" id="otpInput" maxlength="4" placeholder="• • • •" class="w-full border border-emerald-400 rounded px-3 py-2 text-center tracking-widest font-bold text-sm focus:outline-none bg-white">
-                            <button type="button" onclick="verifyOTP()" class="bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold px-4 py-2 rounded transition shrink-0">
-                                Verify
-                            </button>
-                        </div>
-                        <p id="otpStatus" class="text-[11px] text-emerald-800 font-medium hidden">✔ Mobile Number Verified Successfully</p>
-                    </div>
-
-                    <!-- 3. Registered Email & State -->
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-xs font-bold text-slate-700 uppercase mb-1" data-en="3. Registered Email ID *" data-hi="3. रजिस्टर्ड ईमेल आईडी *">3. Registered Email ID *</label>
-                            <input type="email" id="emailId" required placeholder="user@gmail.com" class="w-full border border-slate-300 border-b-2 border-b-postMaroon rounded px-3 py-2.5 text-xs sm:text-sm focus:outline-none">
                         </div>
                         <div>
-                            <label class="block text-xs font-bold text-slate-700 uppercase mb-1" data-en="4. State / Jurisdiction *" data-hi="4. राज्य / न्याय क्षेत्र *">4. State / Jurisdiction *</label>
-                            <select required class="w-full border border-slate-300 border-b-2 border-b-postMaroon rounded px-3 py-2.5 text-xs sm:text-sm bg-white focus:outline-none">
-                                <option value="">-- Select State --</option>
-                                <option value="UP">Uttar Pradesh</option>
-                                <option value="DL">Delhi NCR</option>
-                                <option value="MH">Maharashtra</option>
-                                <option value="RJ">Rajasthan</option>
-                                <option value="BR">Bihar</option>
-                                <option value="MP">Madhya Pradesh</option>
-                                <option value="HR">Haryana</option>
-                                <option value="UK">Uttarakhand</option>
-                                <option value="OTHER">Other Indian State / UT</option>
+                            <label class="block text-xs font-bold text-slate-700 uppercase mb-1" data-en="3. Title / Gender *" data-hi="3. लिंग चुनें *">3. Title / Gender *</label>
+                            <select id="userGender" required class="w-full border border-slate-300 border-b-2 border-b-postMaroon rounded px-3 py-2.5 text-xs sm:text-sm bg-white focus:outline-none">
+                                <option value="Male">Male / पुरुष</option>
+                                <option value="Female">Female / महिला</option>
+                                <option value="Other">Other / अन्य</option>
                             </select>
                         </div>
                     </div>
 
-                    <!-- 4. Create Password / PIN -->
+                    <!-- 3. Registered Email ID -->
                     <div>
-                        <label class="block text-xs font-bold text-slate-700 uppercase mb-1" data-en="5. Set 6-Digit Security Passcode / Password *" data-hi="5. अपना पासवर्ड या 6-अंकों का पिन बनाएं *">5. Set 6-Digit Security Passcode / Password *</label>
-                        <input type="password" required minlength="6" placeholder="Minimum 6 characters or digits" class="w-full border border-slate-300 border-b-2 border-b-postMaroon rounded px-3 py-2.5 text-xs sm:text-sm focus:outline-none">
+                        <label class="block text-xs font-bold text-slate-700 uppercase mb-1" data-en="4. Official / Registered Email Address (For Nodal CC) *" data-hi="4. रजिस्टर्ड ईमेल आईडी (नोडल नोटिस की कॉपी पाने के लिए) *">4. Official / Registered Email Address (For Nodal CC) *</label>
+                        <input type="email" id="signupEmail" required placeholder="citizen@gmail.com" class="w-full border border-slate-300 border-b-2 border-b-postMaroon rounded px-3 py-2.5 text-xs sm:text-sm focus:outline-none">
                     </div>
 
-                    <!-- 5. Official Security Captcha -->
+                    <!-- 4. All 29 States + 8 Union Territories, District & PIN Code -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase mb-1" data-en="5. State / Union Territory (All India) *" data-hi="5. राज्य / केंद्र शासित प्रदेश चुनें *">5. State / Union Territory (All India) *</label>
+                            <select id="userState" required class="w-full border border-slate-300 border-b-2 border-b-postMaroon rounded px-2.5 py-2.5 text-xs sm:text-sm bg-white focus:outline-none">
+                                <option value="">-- Select State / राज्य चुनें --</option>
+                                <optgroup label="States of India (सभी 29 राज्य)">
+                                    <option value="Andhra Pradesh">1. Andhra Pradesh (आंध्र प्रदेश)</option>
+                                    <option value="Arunachal Pradesh">2. Arunachal Pradesh (अरुणाचल प्रदेश)</option>
+                                    <option value="Assam">3. Assam (असम)</option>
+                                    <option value="Bihar">4. Bihar (बिहार)</option>
+                                    <option value="Chhattisgarh">5. Chhattisgarh (छत्तीसगढ़)</option>
+                                    <option value="Goa">6. Goa (गोवा)</option>
+                                    <option value="Gujarat">7. Gujarat (गुजरात)</option>
+                                    <option value="Haryana">8. Haryana (हरियाणा)</option>
+                                    <option value="Himachal Pradesh">9. Himachal Pradesh (हिमाचल प्रदेश)</option>
+                                    <option value="Jammu and Kashmir">10. Jammu & Kashmir (जम्मू और कश्मीर)</option>
+                                    <option value="Jharkhand">11. Jharkhand (झारखंड)</option>
+                                    <option value="Karnataka">12. Karnataka (कर्नाटक)</option>
+                                    <option value="Kerala">13. Kerala (केरल)</option>
+                                    <option value="Madhya Pradesh">14. Madhya Pradesh (मध्य प्रदेश)</option>
+                                    <option value="Maharashtra">15. Maharashtra (महाराष्ट्र)</option>
+                                    <option value="Manipur">16. Manipur (मणिपुर)</option>
+                                    <option value="Meghalaya">17. Meghalaya (मेघालय)</option>
+                                    <option value="Mizoram">18. Mizoram (मिजोरम)</option>
+                                    <option value="Nagaland">19. Nagaland (नागालैंड)</option>
+                                    <option value="Odisha">20. Odisha (ओडिशा)</option>
+                                    <option value="Punjab">21. Punjab (पंजाब)</option>
+                                    <option value="Rajasthan">22. Rajasthan (राजस्थान)</option>
+                                    <option value="Sikkim">23. Sikkim (सिक्किम)</option>
+                                    <option value="Tamil Nadu">24. Tamil Nadu (तमिलनाडु)</option>
+                                    <option value="Telangana">25. Telangana (तेलंगाना)</option>
+                                    <option value="Tripura">26. Tripura (त्रिपुरा)</option>
+                                    <option value="Uttar Pradesh">27. Uttar Pradesh (उत्तर प्रदेश)</option>
+                                    <option value="Uttarakhand">28. Uttarakhand (उत्तराखंड)</option>
+                                    <option value="West Bengal">29. West Bengal (पश्चिम बंगाल)</option>
+                                </optgroup>
+                                <optgroup label="Union Territories (केंद्र शासित प्रदेश)">
+                                    <option value="Delhi NCR">30. Delhi NCT (दिल्ली एनसीआर)</option>
+                                    <option value="Chandigarh">31. Chandigarh (चंडीगढ़)</option>
+                                    <option value="Puducherry">32. Puducherry (पुडुचेरी)</option>
+                                    <option value="Ladakh">33. Ladakh (लद्दाख)</option>
+                                    <option value="Andaman and Nicobar Islands">34. Andaman & Nicobar Islands</option>
+                                    <option value="Dadra and Nagar Haveli and Daman and Diu">35. Dadra & Nagar Haveli and Daman & Diu</option>
+                                    <option value="Lakshadweep">36. Lakshadweep (लक्षद्वीप)</option>
+                                </optgroup>
+                            </select>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-2">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 uppercase mb-1" data-en="6. District / City *" data-hi="6. जिला / शहर *">6. District / City *</label>
+                                <input type="text" id="userDistrict" required placeholder="e.g., Lucknow" class="w-full border border-slate-300 border-b-2 border-b-postMaroon rounded px-2.5 py-2.5 text-xs sm:text-sm focus:outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 uppercase mb-1" data-en="7. PIN Code *" data-hi="7. पिन कोड *">7. PIN Code *</label>
+                                <input type="text" id="userPincode" maxlength="6" pattern="[1-9][0-9]{5}" required placeholder="226001" class="w-full border border-slate-300 border-b-2 border-b-postMaroon rounded px-2.5 py-2.5 text-xs sm:text-sm focus:outline-none">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 5. Password & Confirm Password -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase mb-1" data-en="8. Create Security Password *" data-hi="8. सुरक्षा पासवर्ड बनाएं *">8. Create Security Password *</label>
+                            <input type="password" id="signupPassword" required minlength="6" placeholder="Min. 6 characters" class="w-full border border-slate-300 border-b-2 border-b-postMaroon rounded px-3 py-2.5 text-xs sm:text-sm focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase mb-1" data-en="9. Confirm Password *" data-hi="9. पासवर्ड की पुष्टि करें *">9. Confirm Password *</label>
+                            <input type="password" id="confirmPassword" required minlength="6" placeholder="Re-enter password" class="w-full border border-slate-300 border-b-2 border-b-postMaroon rounded px-3 py-2.5 text-xs sm:text-sm focus:outline-none">
+                        </div>
+                    </div>
+
+                    <!-- 6. Official Security Captcha -->
                     <div>
-                        <label class="block text-xs font-bold text-slate-700 uppercase mb-1" data-en="6. Security Verification (Captcha) *" data-hi="6. सुरक्षा कोड (Captcha) दर्ज करें *">6. Security Verification (Captcha) *</label>
+                        <label class="block text-xs font-bold text-slate-700 uppercase mb-1" data-en="10. Security Verification Code (Captcha) *" data-hi="10. सुरक्षा कोड (Captcha) दर्ज करें *">10. Security Verification Code (Captcha) *</label>
                         <div class="flex items-center gap-2.5">
                             <div id="captchaDisplay" class="captcha-box border border-slate-400 rounded px-4 py-2 text-base font-extrabold text-postMaroon line-through">
                                 8K49X
                             </div>
-                            <button type="button" onclick="generateCaptcha()" title="Refresh Captcha" class="p-2 border border-slate-300 rounded hover:bg-slate-100 text-postMaroon">
+                            <button type="button" onclick="window.generateCaptcha()" title="Refresh Captcha" class="p-2.5 border border-slate-300 rounded hover:bg-slate-100 text-postMaroon">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
                                 </svg>
                             </button>
-                            <input type="text" id="captchaInput" required placeholder="Enter code shown" class="flex-1 border border-slate-300 border-b-2 border-b-postMaroon rounded px-3 py-2 text-xs sm:text-sm uppercase focus:outline-none">
+                            <input type="text" id="captchaInput" required placeholder="Type code shown" class="flex-1 border border-slate-300 border-b-2 border-b-postMaroon rounded px-3 py-2 text-xs sm:text-sm uppercase focus:outline-none">
                         </div>
                     </div>
 
-                    <!-- DPDP Consent Checkbox -->
+                    <!-- 7. Statutory DPDPA Consent Checkbox -->
                     <div class="flex items-start gap-2.5 bg-slate-50 p-3 rounded border border-slate-200">
-                        <input type="checkbox" required class="mt-0.5 accent-postMaroon">
-                        <p class="text-[11px] text-slate-600 leading-relaxed" data-en="I consent to the collection and encrypted storage of my contact details under the Digital Personal Data Protection Act (DPDPA), 2023 strictly for drafting and dispatching my consumer grievance notices." data-hi="मैं अपनी शिकायत तैयार करने और नोडल अधिकारी को भेजने के लिए डेटा संरक्षण अधिनियम (DPDPA) के तहत अपनी जानकारी सुरक्षित रखने की सहमति देता हूँ।">
-                            I consent to the collection and encrypted storage of my contact details under the Digital Personal Data Protection Act (DPDPA), 2023 strictly for drafting and dispatching my consumer grievance notices.
-                        </p>
+                        <input type="checkbox" id="dpdpaConsent" required class="mt-0.5 accent-postMaroon">
+                        <label for="dpdpaConsent" class="text-[11px] text-slate-600 leading-relaxed cursor-pointer" data-en="I hereby declare that the particulars furnished above are true. I authorize ClaimX under the Digital Personal Data Protection Act (DPDPA), 2023 to store my profile and dispatch formal grievance notices to corporate Nodal Officers on my behalf." data-hi="मैं घोषणा करता/करती हूँ कि ऊपर दी गई जानकारी सत्य है। मैं डेटा संरक्षण अधिनियम (DPDPA), 2023 के तहत अपनी शिकायत नोडल अधिकारियों को भेजने के लिए ClaimX को अधिकृत करता/करती हूँ।">
+                            I hereby declare that the particulars furnished above are true. I authorize ClaimX under the Digital Personal Data Protection Act (DPDPA), 2023 to store my profile and dispatch formal grievance notices to corporate Nodal Officers on my behalf.
+                        </label>
                     </div>
 
                     <!-- Submit Button -->
-                    <button type="submit" class="w-full bg-postMaroon hover:bg-postDark text-white font-bold py-3.5 px-6 rounded-lg shadow transition flex items-center justify-center gap-2 text-sm">
-                        <span data-en="COMPLETE CITIZEN REGISTRATION" data-hi="पंजीकरण पूरा करें और आगे बढ़ें">COMPLETE CITIZEN REGISTRATION</span>
+                    <button type="submit" id="signupBtn" class="w-full bg-postMaroon hover:bg-postDark text-white font-bold py-3.5 px-6 rounded-lg shadow transition flex items-center justify-center gap-2 text-sm">
+                        <span id="signupBtnText" data-en="REGISTER CITIZEN ACCOUNT & GENERATE ID" data-hi="नागरिक खाता पंजीकृत करें और आईडी प्राप्त करें">REGISTER CITIZEN ACCOUNT & GENERATE ID</span>
                         <span>&rarr;</span>
                     </button>
                 </form>
 
-                <!-- B. LOGIN FORM (Hidden by Default) -->
-                <form id="loginForm" class="hidden p-5 sm:p-7 space-y-4" onsubmit="handleLogin(event)">
-                    <div>
-                        <label class="block text-xs font-bold text-slate-700 uppercase mb-1" data-en="Registered Mobile No. or Email ID *" data-hi="रजिस्टर्ड मोबाइल नंबर या ईमेल *">Registered Mobile No. or Email ID *</label>
-                        <input type="text" required placeholder="Enter 10-digit mobile or email" class="w-full border border-slate-300 border-b-2 border-b-postMaroon rounded px-3 py-2.5 text-xs sm:text-sm focus:outline-none">
+                <!-- ========================================== -->
+                <!-- B. CITIZEN LOGIN FORM (WITH PASSWORD RESET)-->
+                <!-- ========================================== -->
+                <form id="loginForm" class="hidden p-5 sm:p-7 space-y-4">
+                    <div class="bg-slate-50 border border-slate-200 rounded p-2.5 text-[11px] text-slate-600">
+                        <span data-en="Login using your registered Email ID and Password to view active dockets, 48-hour SLA timers, or Admin Portal." data-hi="अपने सक्रिय डॉकेट, 48-घंटे के टाइमर या डैशबोर्ड को देखने के लिए अपने रजिस्टर्ड ईमेल और पासवर्ड से लॉगिन करें।">
+                            Login using your registered Email ID and Password to view active dockets, 48-hour SLA timers, or Admin Portal.
+                        </span>
                     </div>
 
                     <div>
-                        <label class="block text-xs font-bold text-slate-700 uppercase mb-1" data-en="Passcode / Password *" data-hi="पासवर्ड या पिन दर्ज करें *">Passcode / Password *</label>
-                        <input type="password" required placeholder="Enter your password" class="w-full border border-slate-300 border-b-2 border-b-postMaroon rounded px-3 py-2.5 text-xs sm:text-sm focus:outline-none">
+                        <label class="block text-xs font-bold text-slate-700 uppercase mb-1" data-en="Registered Email ID *" data-hi="रजिस्टर्ड ईमेल आईडी *">Registered Email ID *</label>
+                        <input type="email" id="loginEmail" required placeholder="citizen@gmail.com" class="w-full border border-slate-300 border-b-2 border-b-postMaroon rounded px-3 py-2.5 text-xs sm:text-sm focus:outline-none">
                     </div>
 
-                    <div class="flex justify-between items-center text-xs">
-                        <label class="flex items-center gap-1.5 text-slate-600">
-                            <input type="checkbox" class="accent-postMaroon"> Remember Session
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase mb-1" data-en="Security Password *" data-hi="सुरक्षा पासवर्ड *">Security Password *</label>
+                        <input type="password" id="loginPassword" required placeholder="Enter your password" class="w-full border border-slate-300 border-b-2 border-b-postMaroon rounded px-3 py-2.5 text-xs sm:text-sm focus:outline-none">
+                    </div>
+
+                    <div class="flex justify-between items-center text-xs pt-1">
+                        <label class="flex items-center gap-1.5 text-slate-600 cursor-pointer">
+                            <input type="checkbox" checked class="accent-postMaroon"> Keep session active
                         </label>
-                        <a href="#" onclick="alert('OTP reset link sent to your registered mobile.')" class="text-postMaroon font-bold hover:underline">Forgot Passcode?</a>
+                        <button type="button" onclick="window.handleForgotPassword()" class="text-postMaroon font-bold hover:underline" data-en="Forgot Password?" data-hi="पासवर्ड भूल गए?">
+                            Forgot Password?
+                        </button>
                     </div>
 
-                    <button type="submit" class="w-full bg-postMaroon hover:bg-postDark text-white font-bold py-3.5 px-6 rounded-lg shadow transition flex items-center justify-center gap-2 text-sm">
-                        <span data-en="ACCESS GRIEVANCE DASHBOARD" data-hi="डैशबोर्ड में लॉगिन करें">ACCESS GRIEVANCE DASHBOARD</span>
+                    <button type="submit" id="loginBtn" class="w-full bg-postMaroon hover:bg-postDark text-white font-bold py-3.5 px-6 rounded-lg shadow transition flex items-center justify-center gap-2 text-sm">
+                        <span id="loginBtnText" data-en="AUTHENTICATE & ACCESS PORTAL" data-hi="पोर्टल में लॉगिन करें">AUTHENTICATE & ACCESS PORTAL</span>
                         <span>&rarr;</span>
                     </button>
                 </form>
 
             </div>
 
-            <!-- Bottom Security Guidelines Card -->
+            <!-- Security Advisory Card -->
             <div class="mt-6 bg-white border border-slate-200 rounded-xl p-4 shadow-sm">
                 <h4 class="text-xs font-extrabold uppercase text-postMaroon flex items-center gap-1.5 mb-2">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
                     </svg>
-                    <span data-en="Citizen Security Advisory" data-hi="नागरिक सुरक्षा सलाह">Citizen Security Advisory</span>
+                    <span data-en="Mandatory Citizen Security Notice" data-hi="अनिवार्य नागरिक सुरक्षा सूचना">Mandatory Citizen Security Notice</span>
                 </h4>
                 <ul class="text-[11px] text-slate-600 space-y-1 list-disc list-inside">
-                    <li data-en="ClaimX never asks for your UPI PIN, ATM PIN, CVV, or Bank NetBanking Password." data-hi="ClaimX कभी भी आपसे आपका UPI पिन, ATM पिन, या बैंक पासवर्ड नहीं मांगता है।">ClaimX never asks for your UPI PIN, ATM PIN, CVV, or Bank NetBanking Password.</li>
-                    <li data-en="All automated legal notices are dispatched strictly via desk@claimx.in with your registered email in CC." data-hi="सभी ऑटोमेटेड नोटिस desk@claimx.in से भेजे जाते हैं और आपकी ईमेल को CC में रखा जाता है।">All automated legal notices are dispatched strictly via desk@claimx.in with your registered email in CC.</li>
+                    <li data-en="ClaimX officials will NEVER ask for your UPI PIN, OTP, CVV, or NetBanking password." data-hi="ClaimX कभी भी आपसे आपका UPI पिन, बैंक OTP, CVV या नेटबैंकिंग पासवर्ड नहीं मांगता है।">ClaimX officials will NEVER ask for your UPI PIN, OTP, CVV, or NetBanking password.</li>
+                    <li data-en="Your Citizen ID is linked directly to your grievance dockets for automated 48-hour SLA tracking." data-hi="आपकी सिटीजन आईडी सीधे आपके शिकायत डॉकेट से जुड़ी होती है जिससे 48-घंटे की ट्रैकिंग होती है।">Your Citizen ID is linked directly to your grievance dockets for automated 48-hour SLA tracking.</li>
                 </ul>
             </div>
 
         </main>
     </div>
 
-    <!-- 3. FOOTER -->
+    <!-- 5. OFFICIAL FOOTER -->
     <footer class="bg-[#2B0909] text-slate-300 text-xs py-6 px-4 mt-6">
         <div class="max-w-4xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-3 text-center sm:text-left">
             <div>
-                <p class="font-bold text-white">CLAIMX GRIEVANCE TECHNOLOGIES</p>
+                <p class="font-bold text-white">CLAIMX GRIEVANCE TECHNOLOGIES (claimx.in)</p>
                 <p class="text-[10px] text-slate-400">Independent AI Consumer Documentation Portal | Not affiliated with India Post or Govt of India.</p>
             </div>
             <div class="flex gap-4 text-[11px] font-semibold text-amber-200">
-                <a href="index.html" class="hover:underline">Home</a>
-                <a href="#" class="hover:underline">Terms</a>
-                <a href="#" class="hover:underline">Privacy Policy</a>
+                <a href="index.html" class="hover:underline">Portal Home</a>
+                <a href="#" class="hover:underline">Terms of Use</a>
+                <a href="#" class="hover:underline">DPDPA Privacy</a>
             </div>
         </div>
     </footer>
 
-    <!-- LOGIC SCRIPTS -->
-    <script>
+    <!-- ================================================================= -->
+    <!-- 6. REAL FIREBASE SDK (v10.8.1) WITH YOUR EXACT KEYS & ANALYTICS   -->
+    <!-- ================================================================= -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-analytics.js";
+        import { 
+            getAuth, 
+            createUserWithEmailAndPassword, 
+            signInWithEmailAndPassword,
+            sendPasswordResetEmail,
+            updateProfile 
+        } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+        import { 
+            getFirestore, 
+            doc, 
+            setDoc, 
+            getDoc, 
+            serverTimestamp 
+        } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+
+        // ✅ YOUR EXACT REAL FIREBASE CONFIGURATION (claimx-acec5)
+        const firebaseConfig = {
+            apiKey: "AIzaSyCxrpRzeThK7qEke2ZnFAblUbkBZinhjg8",
+            authDomain: "claimx-acec5.firebaseapp.com",
+            projectId: "claimx-acec5",
+            storageBucket: "claimx-acec5.firebasestorage.app",
+            messagingSenderId: "1004291276574",
+            appId: "1:1004291276574:web:b7d51d5cb4ab33d390130f",
+            measurementId: "G-EB2ELZHW83"
+        };
+
+        // Initialize Firebase App, Analytics, Auth & Firestore
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        // UI State Variables
         let currentLang = 'en';
         let currentCaptcha = '8K49X';
-        let isOtpVerified = false;
 
-        function toggleLanguage() {
+        function showAlert(message, isError = false) {
+            const box = document.getElementById('statusAlert');
+            box.classList.remove('hidden', 'bg-red-50', 'text-red-800', 'border-red-300', 'bg-emerald-50', 'text-emerald-800', 'border-emerald-300');
+            if (isError) {
+                box.classList.add('bg-red-50', 'text-red-800', 'border-red-300');
+            } else {
+                box.classList.add('bg-emerald-50', 'text-emerald-800', 'border-emerald-300');
+            }
+            box.innerHTML = message;
+            box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        // Language Toggle (English / Hindi)
+        window.toggleLanguage = function() {
             currentLang = currentLang === 'en' ? 'hi' : 'en';
             document.getElementById('langBadge').innerText = currentLang === 'en' ? 'HI' : 'EN';
             document.querySelectorAll('[data-en]').forEach(el => {
                 el.innerText = currentLang === 'hi' ? el.getAttribute('data-hi') : el.getAttribute('data-en');
             });
-        }
+        };
 
-        function switchTab(tab) {
+        // Tab Switcher (Signup vs Login)
+        window.switchTab = function(tab) {
+            document.getElementById('statusAlert').classList.add('hidden');
             const signupForm = document.getElementById('signupForm');
             const loginForm = document.getElementById('loginForm');
             const tabSignup = document.getElementById('tabSignup');
@@ -309,9 +429,10 @@
                 tabLogin.className = "py-3.5 text-center border-b-4 border-postMaroon bg-white text-postMaroon transition";
                 tabSignup.className = "py-3.5 text-center border-b-4 border-transparent text-slate-600 hover:text-postMaroon transition";
             }
-        }
+        };
 
-        function generateCaptcha() {
+        // Dynamic Security Captcha Generator
+        window.generateCaptcha = function() {
             const chars = '23456789ABCDEFGHJKLMNPQRSTUVWXYZ';
             let result = '';
             for (let i = 0; i < 5; i++) {
@@ -319,50 +440,179 @@
             }
             currentCaptcha = result;
             document.getElementById('captchaDisplay').innerText = result;
-        }
+        };
 
-        function triggerOTP() {
-            const mobile = document.getElementById('mobileNo').value;
-            if (mobile.length !== 10) {
-                alert('Please enter a valid 10-digit mobile number first.');
-                return;
-            }
-            document.getElementById('otpSection').classList.remove('hidden');
-            document.getElementById('otpBtn').innerText = 'Resend OTP';
-        }
-
-        function verifyOTP() {
-            const otpVal = document.getElementById('otpInput').value;
-            if (otpVal.length === 4) {
-                isOtpVerified = true;
-                document.getElementById('otpStatus').classList.remove('hidden');
-                document.getElementById('otpInput').disabled = true;
-            } else {
-                alert('Please enter the 4-digit OTP (Demo: 1234)');
-            }
-        }
-
-        function handleSignup(e) {
+        // 🚀 1. HANDLE CITIZEN SIGNUP & SAVE TO FIRESTORE 'citizens' COLLECTION
+        document.getElementById('signupForm').addEventListener('submit', async (e) => {
             e.preventDefault();
-            const enteredCaptcha = document.getElementById('captchaInput').value.toUpperCase();
+
+            const enteredCaptcha = document.getElementById('captchaInput').value.trim().toUpperCase();
             if (enteredCaptcha !== currentCaptcha) {
-                alert('Invalid Security Captcha Code! Please try again.');
-                generateCaptcha();
+                showAlert('❌ Security Captcha mismatch! Please enter the exact code shown.', true);
+                window.generateCaptcha();
                 return;
             }
-            const name = document.getElementById('fullName').value;
-            alert('Citizen Account Created Successfully for ' + name + '!\n\nRedirecting to Grievance Filing Dashboard...');
-            window.location.href = 'index.html';
-        }
 
-        function handleLogin(e) {
+            const fullName = document.getElementById('fullName').value.trim();
+            const mobileNo = document.getElementById('mobileNo').value.trim();
+            const gender = document.getElementById('userGender').value;
+            const email = document.getElementById('signupEmail').value.trim().toLowerCase();
+            const state = document.getElementById('userState').value;
+            const district = document.getElementById('userDistrict').value.trim();
+            const pincode = document.getElementById('userPincode').value.trim();
+            const password = document.getElementById('signupPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const dpdpaConsent = document.getElementById('dpdpaConsent').checked;
+
+            if (password !== confirmPassword) {
+                showAlert('❌ Passwords do not match! Please re-verify your security password.', true);
+                return;
+            }
+
+            const btn = document.getElementById('signupBtn');
+            const btnText = document.getElementById('signupBtnText');
+            btn.disabled = true;
+            btnText.innerText = "REGISTERING CITIZEN DOCKET...";
+
+            try {
+                // Step A: Create user in Firebase Authentication
+                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                const user = userCredential.user;
+
+                // Step B: Update Auth Display Name
+                await updateProfile(user, { displayName: fullName });
+
+                // Step C: Generate Official Citizen ID (e.g., CLX-CIT-2026-48291)
+                const randomDigits = Math.floor(10000 + Math.random() * 90000);
+                const citizenId = `CLX-CIT-2026-${randomDigits}`;
+
+                // Step D: Save Real Citizen Data in Firestore `citizens` Collection
+                const citizenData = {
+                    uid: user.uid,
+                    citizenId: citizenId,
+                    fullName: fullName,
+                    gender: gender,
+                    mobile: `+91${mobileNo}`,
+                    email: email,
+                    state: state,
+                    district: district,
+                    pincode: pincode,
+                    country: "India",
+                    role: "citizen", // Admin panel access ke liye Firestore se isko "admin" kar sakte hain
+                    totalDockets: 0,
+                    dpdpaConsent: dpdpaConsent,
+                    accountStatus: "verified",
+                    createdAt: serverTimestamp(),
+                    lastLoginAt: serverTimestamp()
+                };
+
+                await setDoc(doc(db, "citizens", user.uid), citizenData);
+
+                // Step E: Save session in localStorage for seamless auto-fill on index.html
+                localStorage.setItem('claimx_citizen', JSON.stringify({
+                    uid: user.uid,
+                    citizenId: citizenId,
+                    fullName: fullName,
+                    mobile: `+91${mobileNo}`,
+                    email: email,
+                    state: state,
+                    district: district,
+                    pincode: pincode,
+                    role: "citizen"
+                }));
+
+                showAlert(`✔ <strong>Citizen Account Registered!</strong><br>Your Official Citizen ID: <strong>${citizenId}</strong><br>Redirecting to Grievance Portal...`, false);
+
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 1800);
+
+            } catch (error) {
+                console.error("Signup Error:", error);
+                let errorMsg = error.message;
+                if (error.code === 'auth/email-already-in-use') {
+                    errorMsg = "This Email ID is already registered with ClaimX! Please switch to the 'Registered Citizen Login' tab.";
+                } else if (error.code === 'auth/weak-password') {
+                    errorMsg = "Security Password must be at least 6 characters long.";
+                } else if (error.code === 'auth/invalid-email') {
+                    errorMsg = "Please enter a valid Email Address.";
+                }
+                showAlert(`❌ Registration Failed: ${errorMsg}`, true);
+                btn.disabled = false;
+                btnText.innerText = "REGISTER CITIZEN ACCOUNT & GENERATE ID";
+            }
+        });
+
+        // 🔑 2. HANDLE CITIZEN / ADMIN LOGIN & FETCH FIRESTORE PROFILE
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
             e.preventDefault();
-            alert('Login Verified! Redirecting to your Active Dockets...');
-            window.location.href = 'index.html';
-        }
 
-        // Initialize random captcha on load
-        generateCaptcha();
+            const email = document.getElementById('loginEmail').value.trim().toLowerCase();
+            const password = document.getElementById('loginPassword').value;
+            const btn = document.getElementById('loginBtn');
+            const btnText = document.getElementById('loginBtnText');
+
+            btn.disabled = true;
+            btnText.innerText = "VERIFYING CITIZEN CREDENTIALS...";
+
+            try {
+                const userCredential = await signInWithEmailAndPassword(auth, email, password);
+                const user = userCredential.user;
+
+                // Fetch Citizen / Admin Record from Firestore
+                const docRef = doc(db, "citizens", user.uid);
+                const docSnap = await getDoc(docRef);
+
+                let userRole = "citizen";
+
+                if (docSnap.exists()) {
+                    const data = docSnap.data();
+                    userRole = data.role || "citizen";
+                    localStorage.setItem('claimx_citizen', JSON.stringify({
+                        uid: user.uid,
+                        citizenId: data.citizenId,
+                        fullName: data.fullName,
+                        mobile: data.mobile,
+                        email: data.email,
+                        state: data.state,
+                        district: data.district,
+                        pincode: data.pincode,
+                        role: userRole
+                    }));
+                }
+
+                showAlert(`✔ Authentication Verified! Welcome back. Redirecting...`, false);
+
+                setTimeout(() => {
+                    // Agar user Admin hai aur aapne admin.html banaya hai, toh wahan bhej sakte hain
+                    window.location.href = 'index.html';
+                }, 1200);
+
+            } catch (error) {
+                console.error("Login Error:", error);
+                showAlert("❌ Invalid Email ID or Password! Please check your credentials and try again.", true);
+                btn.disabled = false;
+                btnText.innerText = "AUTHENTICATE & ACCESS PORTAL";
+            }
+        });
+
+        // 🔄 3. HANDLE FORGOT PASSWORD (REAL FIREBASE EMAIL RESET)
+        window.handleForgotPassword = async function() {
+            const email = document.getElementById('loginEmail').value.trim().toLowerCase();
+            if (!email) {
+                showAlert("⚠️ Please enter your Registered Email ID in the box above first, then click 'Forgot Password?'.", true);
+                return;
+            }
+            try {
+                await sendPasswordResetEmail(auth, email);
+                showAlert(`✔ Password reset link has been dispatched to <strong>${email}</strong>. Please check your inbox/spam folder.`, false);
+            } catch (error) {
+                showAlert(`❌ Error sending reset link: ${error.message}`, true);
+            }
+        };
+
+        // Initialize Captcha on Page Load
+        window.generateCaptcha();
     </script>
 </body>
 </html>
