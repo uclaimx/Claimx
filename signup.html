@@ -13,233 +13,120 @@
               postMaroon: '#7B1E1E',
               postDark: '#521111',
               postLight: '#FDF8F8',
-              postGray: '#EAEAEA',
-              postText: '#681818'
             }
           }
         }
       }
     </script>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;600;700&family=Plus+Jakarta+Sans:wght@500;700;800&family=JetBrains+Mono:wght@600;700&display=swap" rel="stylesheet">
     <style>
-      body {
-        font-family: 'Plus Jakarta Sans', 'Noto Sans Devanagari', sans-serif;
-        background-color: #F4F4F5;
-      }
-      .mono-code {
-        font-family: 'JetBrains Mono', monospace;
-      }
+      body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #F4F4F5; }
+      .mono-code { font-family: 'JetBrains Mono', monospace; }
     </style>
 </head>
 <body class="text-slate-900 min-h-screen flex flex-col justify-between">
 
-    <div>
-        <!-- 1. TOP UTILITY STRIP -->
-        <div class="bg-[#2B0909] text-slate-200 text-[11px] py-1.5 px-4 border-b border-postDark">
-            <div class="max-w-4xl mx-auto flex justify-between items-center">
-                <div class="flex items-center gap-2">
-                    <span class="font-bold text-amber-400">🇮🇳</span>
-                    <span data-en="National Consumer Grievance & Automated Escalation System" data-hi="राष्ट्रीय उपभोक्ता शिकायत एवं स्वचालित निवारण प्रणाली">National Consumer Grievance & Automated Escalation System</span>
-                </div>
-                <div class="hidden sm:flex items-center gap-4">
-                    <span>Helpdesk: <strong class="text-white">desk@claimx.in</strong></span>
-                    <span class="text-emerald-400 font-semibold">● OTP Gateway Active</span>
-                </div>
-            </div>
+    <!-- Header -->
+    <header class="bg-white px-4 pt-4 pb-3 border-b border-slate-200 sticky top-0 z-40 shadow-sm">
+        <div class="max-w-md mx-auto flex justify-center items-center">
+            <h1 class="text-xl font-extrabold text-slate-900 tracking-tight flex items-center gap-2">
+                <span class="text-postMaroon text-2xl">🛡️</span> CLAIMX PORTAL
+            </h1>
         </div>
+    </header>
 
-        <!-- 2. OFFICIAL INDIA POST STYLE HEADER -->
-        <header class="bg-white px-4 pt-3 pb-2.5 border-b border-slate-200 sticky top-0 z-40 shadow-sm">
-            <div class="max-w-4xl mx-auto flex justify-between items-center">
-                <a href="index.html" class="flex items-center gap-2.5">
-                    <div class="w-9 h-11 flex items-center justify-center text-postMaroon shrink-0">
-                        <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3L3 7v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-9-4z"/>
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v8M8 11h8"/>
-                        </svg>
-                    </div>
-                    <div class="leading-tight">
-                        <p class="text-[11px] text-slate-600 font-medium" data-en="Consumer Rights Protection Initiative" data-hi="उपभोक्ता अधिकार संरक्षण पहल">Consumer Rights Protection Initiative</p>
-                        <p class="text-[11px] text-slate-600 font-medium" data-en="National Grievance Routing Portal" data-hi="राष्ट्रीय शिकायत निवारण पोर्टल">National Grievance Routing Portal</p>
-                        <h1 class="text-xs sm:text-sm font-extrabold text-slate-900 tracking-tight" data-en="Department of ClaimX Redressal" data-hi="क्लेम-एक्स शिकायत निवारण विभाग">Department of ClaimX Redressal</h1>
-                    </div>
-                </a>
-
-                <div class="flex items-center space-x-3 text-postMaroon">
-                    <button type="button" onclick="window.toggleLanguage()" title="Switch Hindi/English" class="px-2.5 py-1 border border-postMaroon/30 bg-postLight rounded font-bold text-xs flex items-center gap-1 hover:bg-postMaroon hover:text-white transition">
-                        <span>अ/A</span>
-                        <span id="langBadge" class="text-[10px]">HI</span>
-                    </button>
-                    <a href="index.html" class="text-xs font-bold text-slate-700 hover:text-postMaroon flex items-center gap-1 border border-slate-200 px-2.5 py-1 rounded bg-slate-50">
-                        <span>&larr;</span>
-                        <span data-en="Portal Home" data-hi="पोर्टल होम">Portal Home</span>
-                    </a>
-                </div>
-            </div>
-        </header>
-
-        <!-- 3. BREADCRUMB BAR -->
-        <div class="bg-[#EAEAEA] border-b border-slate-300 py-2 px-4 text-xs">
-            <div class="max-w-4xl mx-auto flex items-center justify-between text-slate-600 font-medium">
-                <div>
-                    <a href="index.html" class="hover:underline text-postMaroon font-semibold" data-en="Home" data-hi="होम">Home</a>
-                    <span class="mx-1.5">/</span>
-                    <span class="text-slate-800 font-bold" data-en="Quick Citizen Registration (Form CLX-01)" data-hi="नागरिक त्वरित पंजीकरण (फॉर्म CLX-01)">Quick Citizen Registration (Form CLX-01)</span>
-                </div>
-                <span class="hidden sm:inline-block text-[11px] text-postMaroon font-bold">🔒 Secure Vercel OTP Verification</span>
-            </div>
-        </div>
-
-        <!-- 4. MAIN AUTHENTICATION CONTAINER -->
-        <main class="max-w-md mx-auto px-4 py-6 sm:py-9">
+    <!-- Main Container -->
+    <main class="max-w-md mx-auto px-4 py-8 w-full">
+        
+        <div class="bg-white border border-slate-300 rounded-xl shadow-md overflow-hidden">
             
-            <div class="bg-gradient-to-r from-[#F9F6F0] to-[#EFECE6] border border-slate-300 border-l-4 border-l-postMaroon rounded-t-xl p-4 flex items-center justify-between">
+            <!-- Tabs -->
+            <div class="grid grid-cols-2 border-b border-slate-200 bg-slate-100 text-sm font-bold">
+                <button type="button" id="tabSignup" onclick="window.switchTab('signup')" class="py-3.5 text-center border-b-4 border-postMaroon bg-white text-postMaroon transition">
+                    📝 New Signup
+                </button>
+                <button type="button" id="tabLogin" onclick="window.switchTab('login')" class="py-3.5 text-center border-b-4 border-transparent text-slate-600 hover:text-postMaroon transition">
+                    🔑 Login
+                </button>
+            </div>
+
+            <div id="statusAlert" class="hidden mx-5 mt-5 p-3 rounded text-xs font-semibold border"></div>
+
+            <!-- ========================================== -->
+            <!-- A. SIGNUP FORM (Mobile + 6-Digit OTP)      -->
+            <!-- ========================================== -->
+            <form id="signupForm" class="p-5 sm:p-7 space-y-4">
                 <div>
-                    <div class="flex items-center gap-2">
-                        <span class="text-[10px] font-extrabold uppercase tracking-widest text-postMaroon bg-white px-2 py-0.5 rounded border border-postMaroon/20">INSTANT ACCESS</span>
-                        <span class="text-[10px] font-bold text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded">OTP VERIFIED</span>
-                    </div>
-                    <h2 class="text-base sm:text-lg font-extrabold text-postMaroon mt-1.5" data-en="Citizen Grievance Account" data-hi="उपभोक्ता शिकायत खाता">Citizen Grievance Account</h2>
-                    <p class="text-[11px] text-slate-600" data-en="Register in 30 seconds. State & order details will be collected during grievance filing." data-hi="सिर्फ 30 सेकंड में खाता बनाएं। राज्य और शिकायत की जानकारी फॉर्म भरते समय ली जाएगी।">Register in 30 seconds. State & order details will be collected during grievance filing.</p>
-                </div>
-            </div>
-
-            <!-- Main Form Box -->
-            <div class="bg-white border border-t-0 border-slate-300 rounded-b-xl shadow-md overflow-hidden">
-                
-                <!-- Navigation Tabs -->
-                <div class="grid grid-cols-2 border-b border-slate-200 bg-slate-100 text-xs sm:text-sm font-bold">
-                    <button type="button" id="tabSignup" onclick="window.switchTab('signup')" class="py-3.5 text-center border-b-4 border-postMaroon bg-white text-postMaroon transition">
-                        <span data-en="📝 New Citizen Signup" data-hi="📝 नया नागरिक पंजीकरण">📝 New Citizen Signup</span>
-                    </button>
-                    <button type="button" id="tabLogin" onclick="window.switchTab('login')" class="py-3.5 text-center border-b-4 border-transparent text-slate-600 hover:text-postMaroon transition">
-                        <span data-en="🔑 Citizen Login" data-hi="🔑 नागरिक लॉगिन">🔑 Citizen Login</span>
-                    </button>
+                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Full Legal Name *</label>
+                    <input type="text" id="fullName" required placeholder="e.g., Akash Morya" class="w-full border border-slate-300 border-b-2 border-b-postMaroon rounded px-3 py-2.5 text-sm focus:outline-none">
                 </div>
 
-                <!-- Status Alert Banner -->
-                <div id="statusAlert" class="hidden mx-5 mt-5 p-3 rounded text-xs font-semibold border"></div>
-
-                <!-- ========================================== -->
-                <!-- A. CITIZEN SIGNUP FORM (Mobile + OTP)      -->
-                <!-- ========================================== -->
-                <form id="signupForm" class="p-5 sm:p-7 space-y-4">
-                    
-                    <!-- 1. Full Legal Name -->
-                    <div>
-                        <label class="block text-xs font-bold text-slate-700 uppercase mb-1" data-en="1. Full Legal Name *" data-hi="1. पूरा कानूनी नाम *">1. Full Legal Name *</label>
-                        <input type="text" id="fullName" required placeholder="e.g., Akash Kumar Sharma" class="w-full border border-slate-300 border-b-2 border-b-postMaroon rounded px-3 py-2.5 text-xs sm:text-sm focus:outline-none focus:bg-postLight/30">
-                    </div>
-
-                    <!-- 2. Mobile Number & Send OTP -->
-                    <div>
-                        <label class="block text-xs font-bold text-slate-700 uppercase mb-1" data-en="2. 10-Digit Mobile Number *" data-hi="2. 10-अंकों का मोबाइल नंबर *">2. 10-Digit Mobile Number *</label>
-                        <div class="flex gap-2">
-                            <div class="flex flex-1">
-                                <span class="inline-flex items-center bg-slate-100 border border-r-0 border-slate-300 border-b-2 border-b-postMaroon rounded-l px-3 text-xs sm:text-sm font-bold text-slate-700">+91</span>
-                                <input type="tel" id="mobileNo" maxlength="10" pattern="[6-9][0-9]{9}" required placeholder="9876543210" class="w-full border border-slate-300 border-b-2 border-b-postMaroon rounded-r px-3 py-2.5 text-xs sm:text-sm focus:outline-none">
-                            </div>
-                            <button type="button" id="sendOtpBtn" onclick="window.sendOTP()" class="bg-slate-900 hover:bg-black text-white font-bold text-xs px-3.5 py-2.5 rounded transition shrink-0">
-                                <span id="sendOtpText" data-en="Send OTP" data-hi="OTP भेजें">Send OTP</span>
-                            </button>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1">10-Digit Mobile Number *</label>
+                    <div class="flex gap-2">
+                        <div class="flex flex-1">
+                            <span class="inline-flex items-center bg-slate-100 border border-r-0 border-slate-300 border-b-2 border-b-postMaroon rounded-l px-3 text-sm font-bold text-slate-700">+91</span>
+                            <input type="tel" id="mobileNo" maxlength="10" pattern="[6-9][0-9]{9}" required placeholder="9876543210" class="w-full border border-slate-300 border-b-2 border-b-postMaroon rounded-r px-3 py-2.5 text-sm focus:outline-none">
                         </div>
+                        <button type="button" id="sendOtpBtn" onclick="window.sendOTP()" class="bg-slate-900 hover:bg-black text-white font-bold text-xs px-3.5 py-2.5 rounded transition shrink-0">
+                            Send OTP
+                        </button>
                     </div>
+                </div>
 
-                    <!-- 3. OTP Verification Drawer (STRICT 6-DIGIT) -->
-                    <div id="otpBox" class="hidden bg-postLight border border-postMaroon/30 rounded-lg p-3.5 space-y-2.5">
-                        <div class="flex justify-between items-center">
-                            <label class="text-xs font-bold text-postMaroon" data-en="Enter 6-Digit Mobile OTP *" data-hi="6-अंकों का ओटीपी (OTP) दर्ज करें *">Enter 6-Digit Mobile OTP *</label>
-                            <span class="text-[10px] font-bold text-emerald-700">via 2Factor SMS</span>
-                        </div>
-                        <div class="flex gap-2">
-                            <input type="text" id="otpInput" maxlength="6" inputmode="numeric" placeholder="• • • • • •" class="w-full border border-slate-300 border-b-2 border-b-postMaroon rounded px-3 py-2 text-center tracking-widest font-bold text-sm focus:outline-none bg-white mono-code">
-                            <button type="button" id="verifyOtpBtn" onclick="window.verifyOTP()" class="bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold px-4 py-2 rounded transition shrink-0">
-                                <span data-en="Verify" data-hi="सत्यापित करें">Verify</span>
-                            </button>
-                        </div>
-                        <p id="otpVerifiedBadge" class="hidden text-[11px] text-emerald-800 font-bold flex items-center gap-1">
-                            <span>✔</span>
-                            <span data-en="Mobile Number Verified Successfully!" data-hi="मोबाइल नंबर सफलतापूर्वक सत्यापित हो गया!">Mobile Number Verified Successfully!</span>
-                        </p>
+                <!-- OTP Box -->
+                <div id="otpBox" class="hidden bg-postLight border border-postMaroon/30 rounded-lg p-3.5 space-y-2.5">
+                    <div class="flex justify-between items-center">
+                        <label class="text-xs font-bold text-postMaroon">Enter 6-Digit Mobile OTP *</label>
                     </div>
-
-                    <!-- 4. Create Password -->
-                    <div>
-                        <label class="block text-xs font-bold text-slate-700 uppercase mb-1" data-en="3. Create Account Password *" data-hi="3. अकाउंट पासवर्ड बनाएं *">3. Create Account Password *</label>
-                        <input type="password" id="signupPassword" required minlength="6" placeholder="Min. 6 characters" class="w-full border border-slate-300 border-b-2 border-b-postMaroon rounded px-3 py-2.5 text-xs sm:text-sm focus:outline-none">
+                    <div class="flex gap-2">
+                        <input type="text" id="otpInput" maxlength="6" inputmode="numeric" placeholder="• • • • • •" class="w-full border border-slate-300 border-b-2 border-b-postMaroon rounded px-3 py-2 text-center tracking-widest font-bold text-sm focus:outline-none bg-white mono-code">
+                        <button type="button" id="verifyOtpBtn" onclick="window.verifyOTP()" class="bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold px-4 py-2 rounded transition shrink-0">
+                            Verify
+                        </button>
                     </div>
+                    <p id="otpVerifiedBadge" class="hidden text-[11px] text-emerald-800 font-bold flex items-center gap-1">
+                        <span>✔</span> Mobile Verified Successfully!
+                    </p>
+                </div>
 
-                    <!-- Submit Button -->
-                    <button type="submit" id="signupBtn" class="w-full bg-postMaroon hover:bg-postDark text-white font-bold py-3.5 px-6 rounded-lg shadow transition flex items-center justify-center gap-2 text-sm mt-2">
-                        <span id="signupBtnText" data-en="REGISTER CITIZEN ACCOUNT & GENERATE ID" data-hi="नागरिक खाता पंजीकृत करें और आईडी प्राप्त करें">REGISTER CITIZEN ACCOUNT & GENERATE ID</span>
-                        <span>&rarr;</span>
-                    </button>
-                </form>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Create Account Password *</label>
+                    <input type="password" id="signupPassword" required minlength="6" placeholder="Min. 6 characters" class="w-full border border-slate-300 border-b-2 border-b-postMaroon rounded px-3 py-2.5 text-sm focus:outline-none">
+                </div>
 
-                <!-- ========================================== -->
-                <!-- B. CITIZEN LOGIN FORM (Mobile + Password)  -->
-                <!-- ========================================== -->
-                <form id="loginForm" class="hidden p-5 sm:p-7 space-y-4">
-                    <div class="bg-slate-50 border border-slate-200 rounded p-2.5 text-[11px] text-slate-600">
-                        <span data-en="Login using your registered Mobile Number and Password to view active dockets or file a new claim." data-hi="अपने सक्रिय डॉकेट देखने या नई शिकायत दर्ज करने के लिए अपने मोबाइल नंबर और पासवर्ड से लॉगिन करें।">
-                            Login using your registered Mobile Number and Password to view active dockets or file a new claim.
-                        </span>
+                <button type="submit" id="signupBtn" class="w-full bg-postMaroon hover:bg-postDark text-white font-bold py-3.5 px-6 rounded-lg shadow transition text-sm mt-2">
+                    REGISTER ACCOUNT &rarr;
+                </button>
+            </form>
+
+            <!-- ========================================== -->
+            <!-- B. LOGIN FORM                              -->
+            <!-- ========================================== -->
+            <form id="loginForm" class="hidden p-5 sm:p-7 space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Registered Mobile Number *</label>
+                    <div class="flex">
+                        <span class="inline-flex items-center bg-slate-100 border border-r-0 border-slate-300 border-b-2 border-b-postMaroon rounded-l px-3 text-sm font-bold text-slate-700">+91</span>
+                        <input type="tel" id="loginMobile" maxlength="10" pattern="[6-9][0-9]{9}" required placeholder="9876543210" class="w-full border border-slate-300 border-b-2 border-b-postMaroon rounded-r px-3 py-2.5 text-sm focus:outline-none">
                     </div>
-
-                    <div>
-                        <label class="block text-xs font-bold text-slate-700 uppercase mb-1" data-en="Registered Mobile Number *" data-hi="रजिस्टर्ड मोबाइल नंबर *">Registered Mobile Number *</label>
-                        <div class="flex">
-                            <span class="inline-flex items-center bg-slate-100 border border-r-0 border-slate-300 border-b-2 border-b-postMaroon rounded-l px-3 text-xs sm:text-sm font-bold text-slate-700">+91</span>
-                            <input type="tel" id="loginMobile" maxlength="10" pattern="[6-9][0-9]{9}" required placeholder="9876543210" class="w-full border border-slate-300 border-b-2 border-b-postMaroon rounded-r px-3 py-2.5 text-xs sm:text-sm focus:outline-none">
-                        </div>
-                    </div>
-
-                    <div>
-                        <label class="block text-xs font-bold text-slate-700 uppercase mb-1" data-en="Security Password *" data-hi="सुरक्षा पासवर्ड *">Security Password *</label>
-                        <input type="password" id="loginPassword" required placeholder="Enter your password" class="w-full border border-slate-300 border-b-2 border-b-postMaroon rounded px-3 py-2.5 text-xs sm:text-sm focus:outline-none">
-                    </div>
-
-                    <button type="submit" id="loginBtn" class="w-full bg-postMaroon hover:bg-postDark text-white font-bold py-3.5 px-6 rounded-lg shadow transition flex items-center justify-center gap-2 text-sm mt-2">
-                        <span id="loginBtnText" data-en="AUTHENTICATE & ACCESS PORTAL" data-hi="पोर्टल में लॉगिन करें">AUTHENTICATE & ACCESS PORTAL</span>
-                        <span>&rarr;</span>
-                    </button>
-                </form>
-
-            </div>
-        </main>
-    </div>
-
-    <!-- 5. OFFICIAL FOOTER -->
-    <footer class="bg-[#2B0909] text-slate-300 text-xs py-6 px-4 mt-6">
-        <div class="max-w-4xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-3 text-center sm:text-left">
-            <div>
-                <p class="font-bold text-white">CLAIMX GRIEVANCE TECHNOLOGIES (claimx.in)</p>
-                <p class="text-[10px] text-slate-400">Independent AI Consumer Documentation Portal.</p>
-            </div>
-            <div class="flex gap-4 text-[11px] font-semibold text-amber-200">
-                <a href="index.html" class="hover:underline">Portal Home</a>
-                <a href="#" class="hover:underline">Terms of Use</a>
-            </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Security Password *</label>
+                    <input type="password" id="loginPassword" required placeholder="Enter your password" class="w-full border border-slate-300 border-b-2 border-b-postMaroon rounded px-3 py-2.5 text-sm focus:outline-none">
+                </div>
+                <button type="submit" id="loginBtn" class="w-full bg-postMaroon hover:bg-postDark text-white font-bold py-3.5 px-6 rounded-lg shadow transition text-sm mt-2">
+                    LOGIN TO PORTAL &rarr;
+                </button>
+            </form>
         </div>
-    </footer>
+    </main>
 
-    <!-- ================================================================= -->
-    <!-- 6. FIREBASE & 2FACTOR VERCEL OTP LOGIC (STRICT 6-DIGIT MODE)      -->
-    <!-- ================================================================= -->
+    <!-- FIREBASE & AUTH LOGIC -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-        import { 
-            getAuth, 
-            createUserWithEmailAndPassword, 
-            signInWithEmailAndPassword
-        } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
-        import { 
-            getFirestore, 
-            doc, 
-            setDoc, 
-            getDoc, 
-            serverTimestamp 
-        } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+        import { getFirestore, doc, setDoc, getDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
         // ✅ Firebase Configuration
         const firebaseConfig = {
@@ -255,64 +142,41 @@
         const auth = getAuth(app);
         const db = getFirestore(app);
 
-        // UI State Variables
-        let currentLang = 'en';
         let otpSessionId = null;
         let isOtpSent = false;
         let isOtpVerified = false;
 
-        function showAlert(message, isError = false) {
+        function showAlert(msg, isError = false) {
             const box = document.getElementById('statusAlert');
             box.classList.remove('hidden', 'bg-red-50', 'text-red-800', 'border-red-300', 'bg-emerald-50', 'text-emerald-800', 'border-emerald-300');
-            if (isError) {
-                box.classList.add('bg-red-50', 'text-red-800', 'border-red-300');
-            } else {
-                box.classList.add('bg-emerald-50', 'text-emerald-800', 'border-emerald-300');
-            }
-            box.innerHTML = message;
-            box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            box.classList.add(isError ? 'bg-red-50' : 'bg-emerald-50', isError ? 'text-red-800' : 'text-emerald-800', isError ? 'border-red-300' : 'border-emerald-300');
+            box.innerHTML = msg;
         }
-
-        window.toggleLanguage = function() {
-            currentLang = currentLang === 'en' ? 'hi' : 'en';
-            document.getElementById('langBadge').innerText = currentLang === 'en' ? 'HI' : 'EN';
-            document.querySelectorAll('[data-en]').forEach(el => {
-                el.innerText = currentLang === 'hi' ? el.getAttribute('data-hi') : el.getAttribute('data-en');
-            });
-        };
 
         window.switchTab = function(tab) {
             document.getElementById('statusAlert').classList.add('hidden');
-            const signupForm = document.getElementById('signupForm');
-            const loginForm = document.getElementById('loginForm');
-            const tabSignup = document.getElementById('tabSignup');
-            const tabLogin = document.getElementById('tabLogin');
-
+            const sf = document.getElementById('signupForm'), lf = document.getElementById('loginForm');
+            const ts = document.getElementById('tabSignup'), tl = document.getElementById('tabLogin');
             if (tab === 'signup') {
-                signupForm.classList.remove('hidden');
-                loginForm.classList.add('hidden');
-                tabSignup.className = "py-3.5 text-center border-b-4 border-postMaroon bg-white text-postMaroon transition";
-                tabLogin.className = "py-3.5 text-center border-b-4 border-transparent text-slate-600 hover:text-postMaroon transition";
+                sf.classList.remove('hidden'); lf.classList.add('hidden');
+                ts.className = "py-3.5 text-center border-b-4 border-postMaroon bg-white text-postMaroon transition";
+                tl.className = "py-3.5 text-center border-b-4 border-transparent text-slate-600 hover:text-postMaroon transition";
             } else {
-                signupForm.classList.add('hidden');
-                loginForm.classList.remove('hidden');
-                tabLogin.className = "py-3.5 text-center border-b-4 border-postMaroon bg-white text-postMaroon transition";
-                tabSignup.className = "py-3.5 text-center border-b-4 border-transparent text-slate-600 hover:text-postMaroon transition";
+                sf.classList.add('hidden'); lf.classList.remove('hidden');
+                tl.className = "py-3.5 text-center border-b-4 border-postMaroon bg-white text-postMaroon transition";
+                ts.className = "py-3.5 text-center border-b-4 border-transparent text-slate-600 hover:text-postMaroon transition";
             }
         };
 
-        // 📲 STEP 1: SEND OTP via Vercel Backend (/api/auth)
+        // 📲 1. SEND 6-DIGIT OTP
         window.sendOTP = async function() {
             const mobile = document.getElementById('mobileNo').value.trim();
             if (!/^[6-9]\d{9}$/.test(mobile)) {
-                showAlert('❌ Please enter a valid 10-digit Indian Mobile Number.', true);
-                return;
+                showAlert('❌ Please enter a valid 10-digit Mobile Number.', true); return;
             }
 
             const sendBtn = document.getElementById('sendOtpBtn');
-            const sendText = document.getElementById('sendOtpText');
-            sendBtn.disabled = true;
-            sendText.innerText = 'Sending...';
+            sendBtn.disabled = true; sendBtn.innerText = 'Sending...';
 
             try {
                 const res = await fetch('/api/auth', {
@@ -326,32 +190,29 @@
                     otpSessionId = data.sessionId;
                     isOtpSent = true;
                     document.getElementById('otpBox').classList.remove('hidden');
-                    sendText.innerText = 'Resend OTP';
+                    sendBtn.innerText = 'Resend';
                     document.getElementById('mobileNo').readOnly = true;
-                    showAlert(`📲 6-Digit OTP sent to +91-${mobile} via SMS.`, false);
+                    showAlert(`📲 6-Digit OTP sent to +91-${mobile}.`, false);
                 } else {
-                    throw new Error(data.error || 'Failed to send OTP');
+                    showAlert('❌ API Error: ' + data.error, true);
+                    sendBtn.disabled = false; sendBtn.innerText = 'Send OTP';
                 }
             } catch (err) {
-                showAlert(`❌ API Connection Failed: ${err.message}`, true);
-                sendText.innerText = 'Send OTP';
-                sendBtn.disabled = false;
+                showAlert('❌ Connection error. Please check internet.', true);
+                sendBtn.disabled = false; sendBtn.innerText = 'Send OTP';
             }
         };
 
-        // ✔ STEP 2: VERIFY STRICT 6-DIGIT OTP
+        // ✔ 2. VERIFY 6-DIGIT OTP
         window.verifyOTP = async function() {
             const entered = document.getElementById('otpInput').value.trim();
             
-            // फ्रंटएंड चेक: सिर्फ 6 अंक
             if (!isOtpSent || entered.length !== 6) {
-                showAlert('❌ Please enter the exact 6-digit OTP received via SMS.', true); 
-                return;
+                showAlert('❌ Please enter the exact 6-digit OTP received via SMS.', true); return;
             }
 
             const btn = document.getElementById('verifyOtpBtn');
-            btn.disabled = true; 
-            btn.innerText = 'Checking...';
+            btn.disabled = true; btn.innerText = 'Checking...';
 
             try {
                 const res = await fetch('/api/auth', {
@@ -368,101 +229,71 @@
                     document.getElementById('otpVerifiedBadge').classList.remove('hidden');
                     showAlert('✔ Mobile Verified! Enter password and click Register.', false);
                 } else {
-                    showAlert('❌ Invalid or Expired OTP! Try again.', true);
-                    btn.disabled = false; 
-                    btn.innerText = 'Verify';
+                    showAlert(`❌ ${data.error || 'Invalid or Expired OTP!'}`, true);
+                    btn.disabled = false; btn.innerText = 'Verify';
                 }
             } catch (err) {
                 showAlert('❌ Verification error via server.', true);
-                btn.disabled = false; 
-                btn.innerText = 'Verify';
+                btn.disabled = false; btn.innerText = 'Verify';
             }
         };
 
-        // 🚀 STEP 3: FIREBASE SIGNUP (Using Mobile as Email)
+        // 🚀 3. FIREBASE SIGNUP
         document.getElementById('signupForm').addEventListener('submit', async (e) => {
             e.preventDefault();
-
-            if (!isOtpVerified) {
-                showAlert('⚠️ Please verify your Mobile Number via OTP first.', true);
-                return;
-            }
+            if (!isOtpVerified) { showAlert('⚠️ Please verify your Mobile Number via OTP first.', true); return; }
 
             const fullName = document.getElementById('fullName').value.trim();
             const mobile = document.getElementById('mobileNo').value.trim();
             const password = document.getElementById('signupPassword').value;
-
-            // The Hack: We use mobile number to create a unique hidden email for Firebase
             const firebaseEmail = `${mobile}@claimx.in`; 
             const citizenId = `CLX-CIT-${Math.floor(10000 + Math.random() * 90000)}`;
 
             const btn = document.getElementById('signupBtn');
-            const btnText = document.getElementById('signupBtnText');
-            btn.disabled = true;
-            btnText.innerText = "CREATING ACCOUNT...";
+            btn.disabled = true; btn.innerText = "CREATING ACCOUNT...";
 
             try {
-                // 1. Create Auth Account
-                const userCredential = await createUserWithEmailAndPassword(auth, firebaseEmail, password);
-                
-                // 2. Save Citizen Details to Firestore
+                const userCred = await createUserWithEmailAndPassword(auth, firebaseEmail, password);
                 const citizenData = {
-                    uid: userCredential.user.uid,
+                    uid: userCred.user.uid,
                     citizenId: citizenId,
                     fullName: fullName,
                     mobile: `+91${mobile}`,
                     role: "citizen",
                     createdAt: serverTimestamp()
                 };
-                await setDoc(doc(db, "citizens", userCredential.user.uid), citizenData);
-
-                // 3. Save Session Locally
+                await setDoc(doc(db, "citizens", userCred.user.uid), citizenData);
                 localStorage.setItem('claimx_citizen', JSON.stringify(citizenData));
 
-                showAlert(`✔ <strong>Registration Successful!</strong><br>Citizen ID: <strong>${citizenId}</strong><br>Redirecting...`, false);
-                setTimeout(() => { window.location.href = 'index.html'; }, 1500);
-
+                showAlert(`✔ Registration Successful! Redirecting...`, false);
+                setTimeout(() => { window.location.href = 'index.html'; }, 1000);
             } catch (error) {
-                let errorMsg = error.message;
-                if (error.code === 'auth/email-already-in-use') {
-                    errorMsg = "This Mobile Number is already registered! Please switch to Login tab.";
-                }
-                showAlert(`❌ Registration Failed: ${errorMsg}`, true);
-                btn.disabled = false;
-                btnText.innerText = "REGISTER CITIZEN ACCOUNT & GENERATE ID";
+                let msg = error.code === 'auth/email-already-in-use' ? "Mobile Number already registered! Please Login." : error.message;
+                showAlert(`❌ Error: ${msg}`, true);
+                btn.disabled = false; btn.innerText = "REGISTER ACCOUNT →";
             }
         });
 
-        // 🔑 STEP 4: FIREBASE LOGIN (Using Mobile as Email)
+        // 🔑 4. FIREBASE LOGIN
         document.getElementById('loginForm').addEventListener('submit', async (e) => {
             e.preventDefault();
-
             const mobile = document.getElementById('loginMobile').value.trim();
             const password = document.getElementById('loginPassword').value;
             const firebaseEmail = `${mobile}@claimx.in`;
 
             const btn = document.getElementById('loginBtn');
-            const btnText = document.getElementById('loginBtnText');
-            btn.disabled = true;
-            btnText.innerText = "VERIFYING...";
+            btn.disabled = true; btn.innerText = "VERIFYING...";
 
             try {
-                // 1. Login to Firebase
-                const userCredential = await signInWithEmailAndPassword(auth, firebaseEmail, password);
-                
-                // 2. Fetch User Profile from Firestore
-                const docSnap = await getDoc(doc(db, "citizens", userCredential.user.uid));
-                if (docSnap.exists()) {
-                    localStorage.setItem('claimx_citizen', JSON.stringify(docSnap.data()));
-                }
+                const userCred = await signInWithEmailAndPassword(auth, firebaseEmail, password);
+                const docSnap = await getDoc(doc(db, "citizens", userCred.user.uid));
+                if (docSnap.exists()) localStorage.setItem('claimx_citizen', JSON.stringify(docSnap.data()));
 
                 showAlert(`✔ Login Verified! Redirecting...`, false);
                 setTimeout(() => { window.location.href = 'index.html'; }, 1000);
-
             } catch (error) {
                 showAlert("❌ Invalid Mobile Number or Password!", true);
-                btn.disabled = false;
-                btnText.innerText = "AUTHENTICATE & ACCESS PORTAL";
+                btn.disabled = false; btn.innerText = "LOGIN TO PORTAL →";
             }
         });
     </script>
