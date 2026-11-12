@@ -145,7 +145,7 @@
                         </div>
                     </div>
 
-                    <!-- 3. OTP Verification Drawer -->
+                    <!-- 3. OTP Verification Drawer (STRICT 4-DIGIT) -->
                     <div id="otpBox" class="hidden bg-postLight border border-postMaroon/30 rounded-lg p-3.5 space-y-2.5">
                         <div class="flex justify-between items-center">
                             <label class="text-xs font-bold text-postMaroon" data-en="Enter 4-Digit Mobile OTP *" data-hi="4-अंकों का ओटीपी (OTP) दर्ज करें *">Enter 4-Digit Mobile OTP *</label>
@@ -224,7 +224,7 @@
     </footer>
 
     <!-- ================================================================= -->
-    <!-- 6. FIREBASE & 2FACTOR VERCEL OTP LOGIC                            -->
+    <!-- 6. FIREBASE & 2FACTOR VERCEL OTP LOGIC (STRICT MODE)              -->
     <!-- ================================================================= -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
@@ -333,24 +333,25 @@
                     throw new Error(data.error || 'Failed to send OTP');
                 }
             } catch (err) {
-                // Fallback for UI testing if Vercel API is not deployed yet
-                otpSessionId = "TEST_SESSION";
-                isOtpSent = true;
-                document.getElementById('otpBox').classList.remove('hidden');
-                sendText.innerText = 'Resend OTP';
-                showAlert(`⚠️ Vercel API not connected yet. Testing Mode: Type "1234" to verify.`, false);
-            } finally {
+                showAlert(`❌ API Connection Failed: ${err.message}`, true);
+                sendText.innerText = 'Send OTP';
                 sendBtn.disabled = false;
             }
         };
 
-        // ✔ STEP 2: VERIFY OTP via Vercel Backend
+        // ✔ STEP 2: VERIFY STRICT 4-DIGIT OTP via Vercel Backend
         window.verifyOTP = async function() {
             const entered = document.getElementById('otpInput').value.trim();
+            
+            // फ्रंटएंड पर भी सख्ती: सिर्फ 4-डिजिट ही एक्सेप्ट होगा
             if (!isOtpSent || entered.length !== 4) {
-                showAlert('❌ Please enter the 4-digit OTP.', true);
+                showAlert('❌ Please enter the complete 4-digit OTP.', true);
                 return;
             }
+
+            const btn = document.getElementById('verifyOtpBtn');
+            btn.disabled = true;
+            btn.innerText = 'Verifying...';
 
             try {
                 const res = await fetch('/api/auth', {
@@ -360,7 +361,8 @@
                 });
                 const data = await res.json();
 
-                if (data.success || entered === "1234") { // "1234" bypass for testing
+                // असली वेरिफिकेशन (कोई डमी पास नहीं)
+                if (data.success) { 
                     isOtpVerified = true;
                     document.getElementById('otpInput').disabled = true;
                     document.getElementById('verifyOtpBtn').classList.add('hidden');
@@ -368,17 +370,13 @@
                     showAlert('✔ Mobile Verified! Now set a password and click Register.', false);
                 } else {
                     showAlert('❌ Invalid or Expired OTP! Please try again.', true);
+                    btn.disabled = false;
+                    btn.innerText = 'Verify';
                 }
             } catch (err) {
-                if (entered === "1234") {
-                    isOtpVerified = true;
-                    document.getElementById('otpInput').disabled = true;
-                    document.getElementById('verifyOtpBtn').classList.add('hidden');
-                    document.getElementById('otpVerifiedBadge').classList.remove('hidden');
-                    showAlert('✔ Mobile Verified (Test Mode)!', false);
-                } else {
-                    showAlert('❌ Error verifying OTP via server.', true);
-                }
+                showAlert('❌ Error verifying OTP via server. Please check internet connection.', true);
+                btn.disabled = false;
+                btn.innerText = 'Verify';
             }
         };
 
