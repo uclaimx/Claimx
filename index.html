@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ClaimX | Consumer Grievance & Escalation Portal</title>
+    <title>ClaimX | National Consumer Grievance & Automated Escalation Portal</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
@@ -14,17 +14,24 @@
               postDark: '#521111',
               postLight: '#FDF8F8',
               postGray: '#EAEAEA',
-              postText: '#681818'
+              postText: '#681818',
+              govSaffron: '#E07A47',
+              govCream: '#FBF7F2',
+              govNavy: '#0A2540'
             }
           }
         }
       }
     </script>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@600;700&display=swap" rel="stylesheet">
     <style>
       body {
         font-family: 'Plus Jakarta Sans', 'Noto Sans Devanagari', sans-serif;
         background-color: #F4F4F5;
+        transition: font-size 0.2s ease;
+      }
+      .mono-code {
+        font-family: 'JetBrains Mono', monospace;
       }
       @keyframes marquee {
         0% { transform: translateX(100%); }
@@ -33,250 +40,324 @@
       .ticker-move {
         display: inline-block;
         white-space: nowrap;
-        animation: marquee 22s linear infinite;
+        animation: marquee 24s linear infinite;
       }
       .ticker-paused {
         animation-play-state: paused !important;
       }
+      /* Custom thin scrollbar for Notice Boards (Screenshot 1 style) */
+      .gov-scroll::-webkit-scrollbar {
+        width: 4px;
+      }
+      .gov-scroll::-webkit-scrollbar-track {
+        background: #f1f1f1;
+      }
+      .gov-scroll::-webkit-scrollbar-thumb {
+        background: #7B1E1E;
+        border-radius: 4px;
+      }
     </style>
 </head>
-<body class="text-slate-900 min-h-screen flex flex-col justify-between relative overflow-x-hidden">
+<body id="mainBody" class="text-slate-900 min-h-screen flex flex-col justify-between relative overflow-x-hidden">
 
-    <!-- 1. WELCOME LANGUAGE POPUP MODAL (Exact India Post Style) -->
+    <!-- ================================================================= -->
+    <!-- 1. WELCOME LANGUAGE POPUP MODAL (Exact Same Bilingual System)     -->
+    <!-- ================================================================= -->
     <div id="langModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm px-4">
-        <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-2xl relative text-center border border-slate-100">
+        <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-2xl relative text-center border border-slate-100 border-t-4 border-t-postMaroon">
             <button onclick="closeModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700 text-lg font-bold leading-none">&times;</button>
             
+            <div class="w-10 h-10 rounded-full bg-postLight text-postMaroon flex items-center justify-center mx-auto font-bold text-sm border border-postMaroon/20">
+                अ/A
+            </div>
             <h2 class="text-xl font-bold text-slate-900 mt-2">Welcome / स्वागत है</h2>
-            <p class="text-xs text-slate-500 mt-2 leading-relaxed">
-                Please select your preferred language /<br>कृपया भाषा चुनें
+            <p class="text-xs text-slate-500 mt-1.5 leading-relaxed">
+                Please select your preferred language /<br>कृपया पोर्टल की भाषा चुनें
             </p>
 
-            <div class="grid grid-cols-2 gap-3.5 mt-6 mb-2">
+            <div class="grid grid-cols-2 gap-3.5 mt-5 mb-2">
                 <!-- English Option -->
-                <button onclick="setLanguage('en')" id="btnEn" class="border-2 border-postMaroon rounded-xl py-5 px-3 flex flex-col items-center justify-center hover:bg-postLight transition focus:outline-none">
-                    <span class="text-2xl font-normal text-slate-900 mb-1">A</span>
-                    <span class="text-sm font-medium text-slate-800">English</span>
+                <button onclick="setLanguage('en')" id="btnEn" class="border-2 border-postMaroon rounded-xl py-4 px-3 flex flex-col items-center justify-center hover:bg-postLight transition focus:outline-none">
+                    <span class="text-2xl font-bold text-postMaroon mb-1">A</span>
+                    <span class="text-xs font-bold text-slate-800">English</span>
                 </button>
                 <!-- Hindi Option -->
-                <button onclick="setLanguage('hi')" id="btnHi" class="border border-slate-200 rounded-xl py-5 px-3 flex flex-col items-center justify-center hover:border-postMaroon hover:bg-postLight transition focus:outline-none">
-                    <span class="text-2xl font-normal text-slate-900 mb-1">अ</span>
-                    <span class="text-sm font-medium text-slate-800">हिन्दी (Hindi)</span>
+                <button onclick="setLanguage('hi')" id="btnHi" class="border border-slate-200 rounded-xl py-4 px-3 flex flex-col items-center justify-center hover:border-postMaroon hover:bg-postLight transition focus:outline-none">
+                    <span class="text-2xl font-bold text-postMaroon mb-1">अ</span>
+                    <span class="text-xs font-bold text-slate-800">हिन्दी (Hindi)</span>
                 </button>
             </div>
+            <p class="text-[10px] text-slate-400 mt-2">Independent Consumer Documentation Portal</p>
         </div>
     </div>
 
     <!-- MAIN PORTAL CONTENT -->
     <div>
-        <!-- 2. OFFICIAL HEADER (No Images, Pure SVG) -->
-        <header class="bg-white px-4 pt-3 pb-2.5 border-b border-slate-200 sticky top-0 z-40 shadow-sm">
-            <div class="max-w-4xl mx-auto">
-                <!-- Top Row: Emblem + Utility Icons -->
-                <div class="flex justify-between items-center">
-                    <div class="flex items-center gap-2.5">
-                        <!-- Custom SVG Justice & Shield Pillar Icon -->
-                        <div class="w-9 h-11 flex items-center justify-center text-slate-800 shrink-0">
-                            <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 3L3 7v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-9-4z"/>
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v8M8 11h8"/>
-                            </svg>
-                        </div>
-                        <div class="leading-tight">
-                            <p class="text-[11px] text-slate-600 font-medium" data-en="Consumer Rights Protection Initiative" data-hi="उपभोक्ता अधिकार संरक्षण पहल">Consumer Rights Protection Initiative</p>
-                            <p class="text-[11px] text-slate-600 font-medium" data-en="National Grievance Routing System" data-hi="राष्ट्रीय शिकायत निवारण प्रणाली">National Grievance Routing System</p>
-                            <h1 class="text-xs sm:text-sm font-extrabold text-slate-900 tracking-tight" data-en="Department of ClaimX Redressal" data-hi="क्लेम-एक्स शिकायत निवारण विभाग">Department of ClaimX Redressal</h1>
-                        </div>
-                    </div>
-
-                    <!-- Right Utility Icons (Exit/Track, Language, Accessibility, User) -->
-                    <div class="flex items-center space-x-2.5 text-postMaroon">
-                        <a href="#trackBox" title="Track Docket" class="p-1 hover:bg-postLight rounded">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/>
-                            </svg>
-                        </a>
-                        <span class="text-slate-300">|</span>
-                        <button onclick="openModal()" title="Change Language" class="p-1 hover:bg-postLight rounded font-bold text-xs leading-none flex items-center">
-                            <span class="text-[11px] -mt-1">अ</span><span class="text-xs mt-1">A</span>
-                        </button>
-                        <span class="text-slate-300">|</span>
-                        <button title="Accessibility" class="p-1 hover:bg-postLight rounded">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
-                                <circle cx="12" cy="5" r="2"/>
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 9h14M12 9v6m0 0l-3 5m3-5l3 5"/>
-                            </svg>
-                        </button>
-                        <span class="text-slate-300">|</span>
-                        <a href="#intakeForm" title="Citizen Portal" class="p-1 hover:bg-postLight rounded">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
-                                <circle cx="12" cy="12" r="9"/>
-                                <circle cx="12" cy="10" r="3"/>
-                                <path stroke-linecap="round" d="M6.5 18.5c1.5-2 3.3-3 5.5-3s4 1 5.5 3"/>
-                            </svg>
-                        </a>
-                    </div>
+        <!-- ================================================================= -->
+        <!-- 2. TOP GIGW ACCESSIBILITY STRIP (Inspired by Screenshot 1 TopBar) -->
+        <!-- ================================================================= -->
+        <div class="bg-[#1F0909] text-slate-200 text-[11px] py-1.5 px-4 border-b border-postDark">
+            <div class="max-w-5xl mx-auto flex flex-wrap justify-between items-center gap-2">
+                <div class="flex items-center gap-2">
+                    <span class="inline-block w-2 h-2 rounded-full bg-emerald-400"></span>
+                    <span class="font-semibold text-amber-200" data-en="CLAIMX NATIONAL CONSUMER REDRESSAL PORTAL" data-hi="क्लेम-एक्स राष्ट्रीय उपभोक्ता निवारण पोर्टल">CLAIMX NATIONAL CONSUMER REDRESSAL PORTAL</span>
+                    <span class="hidden md:inline text-slate-400">|</span>
+                    <span class="hidden md:inline text-[10px] bg-white/10 px-2 py-0.5 rounded text-slate-300" data-en="Independent Private Tech Initiative" data-hi="स्वतंत्र प्राइवेट टेक पहल">Independent Private Tech Initiative</span>
                 </div>
 
-                <!-- Second Row: Search Input with Maroon Bottom Border + Hamburger Menu -->
-                <div class="mt-3 flex items-center gap-3">
-                    <div class="relative flex-1 border border-slate-200 border-b-2 border-b-postMaroon rounded-sm bg-white flex items-center">
-                        <input type="text" id="searchInput" placeholder="Search company, bank, or docket number..." class="w-full text-xs px-3 py-2 focus:outline-none text-slate-700 bg-transparent">
-                        <button class="px-3 text-postMaroon hover:text-postDark">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                <circle cx="11" cy="11" r="8"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/>
-                            </svg>
-                        </button>
+                <!-- Right Accessibility Controls (Font Size & Skip to Content) -->
+                <div class="flex items-center gap-3 text-[11px]">
+                    <a href="#intakeForm" class="hover:text-amber-300 hidden sm:inline" data-en="Skip to Main Content" data-hi="मुख्य फॉर्म पर जाएं">Skip to Main Content</a>
+                    <span class="hidden sm:inline text-slate-600">|</span>
+                    <div class="flex items-center gap-1 bg-white/10 px-2 py-0.5 rounded">
+                        <button onclick="adjustFontSize(-1)" title="Decrease Font" class="hover:text-amber-300 px-1 font-bold">A-</button>
+                        <button onclick="adjustFontSize(0)" title="Reset Font" class="hover:text-amber-300 px-1 font-bold border-l border-r border-white/20">A</button>
+                        <button onclick="adjustFontSize(1)" title="Increase Font" class="hover:text-amber-300 px-1 font-bold">A+</button>
                     </div>
-                    <button onclick="document.getElementById('mobileNav').classList.toggle('hidden')" class="p-1.5 text-slate-700 hover:text-postMaroon">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" d="M4 6h16M4 12h16M4 18h16"/>
-                        </svg>
+                    <span class="text-slate-600">|</span>
+                    <button onclick="openModal()" class="text-amber-300 font-bold hover:underline flex items-center gap-1">
+                        <span>अ/A</span>
+                        <span id="topLangLabel">हिन्दी / EN</span>
                     </button>
                 </div>
+            </div>
+        </div>
 
-                <!-- Collapsible Quick Menu -->
-                <div id="mobileNav" class="hidden mt-2 pt-2 border-t border-slate-100 text-xs font-semibold text-postMaroon flex flex-wrap gap-4">
-                    <a href="#intakeForm" class="hover:underline">⚡ File New Grievance</a>
-                    <a href="#trackBox" class="hover:underline">🔍 Track Docket</a>
-                    <a href="#charter" class="hover:underline">📜 Statutory Rules</a>
+        <!-- ================================================================= -->
+        <!-- 3. OFFICIAL HEADER & NAVIGATION BAR (100% Safe Custom SVG Emblem) -->
+        <!-- ================================================================= -->
+        <header class="bg-white border-b border-slate-200 sticky top-0 z-40 shadow-sm">
+            <div class="max-w-5xl mx-auto px-4 pt-3 pb-2.5">
+                <!-- Top Row: Custom Shield Emblem + Title + Search Pill -->
+                <div class="flex flex-wrap justify-between items-center gap-3">
+                    <a href="index.html" class="flex items-center gap-3">
+                        <!-- Legal-Safe Custom Constitutional Shield & Scales SVG (NOT Ashoka Emblem) -->
+                        <div class="w-11 h-12 rounded-lg bg-postLight border border-postMaroon/30 flex flex-col items-center justify-center text-postMaroon shrink-0 shadow-sm">
+                            <svg class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 3L3 7v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-9-4z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 7v9M8 10h8M8 10l-1.5 3h3L8 10zm8 0l-1.5 3h3L16 10z"/>
+                            </svg>
+                            <span class="text-[7px] font-extrabold tracking-widest uppercase">CLAIMX</span>
+                        </div>
+                        <div class="leading-tight">
+                            <div class="flex items-center gap-1.5">
+                                <span class="text-[10px] font-bold uppercase tracking-wider text-postMaroon bg-postLight px-2 py-0.5 rounded border border-postMaroon/20" data-en="Consumer Rights Protection Initiative" data-hi="उपभोक्ता अधिकार संरक्षण पहल">Consumer Rights Protection Initiative</span>
+                            </div>
+                            <h1 class="text-sm sm:text-lg font-extrabold text-slate-900 tracking-tight mt-0.5" data-en="Directorate of ClaimX Grievance Redressal" data-hi="क्लेम-एक्स उपभोक्ता शिकायत निवारण निदेशालय">Directorate of ClaimX Grievance Redressal</h1>
+                            <p class="text-[11px] text-slate-500 font-medium" data-en="Automated Pre-Litigation Nodal Routing & SLA Tracking System" data-hi="स्वचालित नोडल शिकायत रूटिंग एवं 48-घंटे एसएलए ट्रैकिंग प्रणाली">Automated Pre-Litigation Nodal Routing & SLA Tracking System</p>
+                        </div>
+                    </a>
+
+                    <!-- Right Utility Icons + Search Box (Embassy Screenshot Style) -->
+                    <div class="flex items-center gap-2.5 ml-auto">
+                        <div class="hidden md:flex items-center border border-slate-300 rounded-full overflow-hidden bg-slate-50">
+                            <input type="text" id="searchInput" placeholder="Search company, bank, or docket..." class="text-xs px-3.5 py-1.5 bg-transparent focus:outline-none w-52 text-slate-700">
+                            <button onclick="document.getElementById('intakeForm').scrollIntoView({behavior:'smooth'})" class="bg-govSaffron hover:bg-postMaroon text-white px-3 py-1.5 text-xs font-bold transition">
+                                🔍
+                            </button>
+                        </div>
+
+                        <a href="signup.html" class="text-xs font-bold text-postMaroon border border-postMaroon hover:bg-postMaroon hover:text-white px-3 py-1.5 rounded-full transition flex items-center gap-1">
+                            <span>👤</span>
+                            <span data-en="Citizen Login" data-hi="नागरिक लॉगिन">Citizen Login</span>
+                        </a>
+
+                        <button onclick="document.getElementById('mobileNav').classList.toggle('hidden')" class="md:hidden p-1.5 text-slate-700 hover:text-postMaroon border border-slate-200 rounded">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" d="M4 6h16M4 12h16M4 18h16"/>
+                            </svg>
+                        </button>
+                    </div>
                 </div>
+
+                <!-- Official Horizontal Navigation Strip (Exact Screenshot 1 Menu Style) -->
+                <nav id="mobileNav" class="hidden md:flex flex-wrap items-center justify-between gap-2 mt-3 pt-2.5 border-t border-slate-200 text-xs font-bold text-slate-700">
+                    <div class="flex flex-wrap items-center gap-5">
+                        <a href="index.html" class="text-postMaroon border-b-2 border-postMaroon pb-1" data-en="Home" data-hi="मुख्य पृष्ठ">Home</a>
+                        <a href="#intakeForm" class="hover:text-postMaroon transition" data-en="File Grievance Docket" data-hi="नई शिकायत दर्ज करें">File Grievance Docket</a>
+                        <a href="#howItWorks" class="hover:text-postMaroon transition" data-en="Escalation Process" data-hi="निवारण प्रक्रिया">Escalation Process</a>
+                        <a href="#noticeBoard" class="hover:text-postMaroon transition" data-en="Circulars & Rules" data-hi="कानूनी नियम व सूचनाएं">Circulars & Rules</a>
+                        <a href="#trackBox" class="hover:text-postMaroon transition" data-en="Track Docket" data-hi="डॉकेट ट्रैक करें">Track Docket</a>
+                        <a href="#charter" class="hover:text-postMaroon transition" data-en="Citizen Charter" data-hi="नागरिक चार्टर">Citizen Charter</a>
+                    </div>
+                    <span class="text-[11px] text-emerald-700 font-extrabold mono-code">● 48-HR NODAL SLA ACTIVE</span>
+                </nav>
             </div>
         </header>
 
-        <!-- 3. PURE CSS GRAPHIC BANNER ("डाक संवाद" Styled Pure Code Banner) -->
-        <section class="relative bg-gradient-to-r from-[#F9F6F0] via-[#EFECE6] to-[#E2E8DD] border-b border-slate-200 overflow-hidden">
-            <div class="max-w-4xl mx-auto px-4 py-6 sm:py-8 relative">
+        <!-- ================================================================= -->
+        <!-- 4. SPLIT GOV-STYLE HERO BANNER (Inspired by Screenshot 1 Top)     -->
+        <!-- ================================================================= -->
+        <section class="relative bg-gradient-to-r from-[#D96B38] via-[#E8885A] to-[#FDF8F5] border-b border-slate-200 overflow-hidden">
+            <!-- Subtle Monument Arch Watermark SVG in Background -->
+            <svg class="absolute left-4 bottom-0 w-64 h-64 text-white/10 pointer-events-none" viewBox="0 0 200 200" fill="currentColor">
+                <path d="M40 200V80L100 30L160 80V200H130V120C130 100 115 90 100 90C85 90 70 100 70 120V200H40Z"/>
+            </svg>
+
+            <div class="max-w-5xl mx-auto px-4 py-7 sm:py-10 relative z-10 grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
                 
-                <!-- Top Left Mini Badge inside Banner -->
-                <div class="inline-flex items-center gap-1.5 bg-white border border-slate-200 rounded px-2 py-1 shadow-sm mb-3">
-                    <span class="w-2.5 h-2.5 rounded-full bg-postMaroon inline-block"></span>
-                    <span class="text-[10px] font-bold text-postMaroon tracking-wider uppercase">CLAIMX AI DESK</span>
+                <!-- Left Saffron Authority Block -->
+                <div class="md:col-span-7 text-white space-y-3">
+                    <div class="inline-flex items-center gap-2 bg-black/25 backdrop-blur-sm px-3 py-1 rounded-full text-[11px] font-bold tracking-wider uppercase">
+                        <span>⚡</span>
+                        <span data-en=" उपभोक्ता संवाद • DIRECT NODAL ESCALATION" data-hi="उपभोक्ता संवाद • सीधा नोडल अधिकारी एक्शन">उपभोक्ता संवाद • DIRECT NODAL ESCALATION</span>
+                    </div>
+
+                    <h2 class="text-2xl sm:text-4xl font-extrabold leading-tight drop-shadow-sm" data-en="Stuck E-Commerce Refund or Failed Bank UPI Debit?" data-hi="कंपनी ने रिफंड रोका या बैंक से पैसे कट गए?">
+                        Stuck E-Commerce Refund or Failed Bank UPI Debit?
+                    </h2>
+
+                    <p class="text-xs sm:text-sm text-white/95 leading-relaxed max-w-xl font-medium" data-en="Stop arguing with automated customer care bots. Upload your proof to generate a legally formatted Grievance Docket routed directly to Level-2 Nodal Officers under Consumer Protection Rules." data-hi="कस्टमर केयर चैटबॉट्स से बहस बंद करें। अपना स्क्रीनशॉट अपलोड करें और उपभोक्ता संरक्षण नियमों के तहत सीधे कंपनी के नोडल अधिकारी (Nodal Officer) को आधिकारिक नोटिस भेजें।">
+                        Stop arguing with automated customer care bots. Upload your proof to generate a legally formatted Grievance Docket routed directly to Level-2 Nodal Officers under Consumer Protection Rules.
+                    </p>
+
+                    <div class="pt-2 flex flex-wrap gap-3">
+                        <a href="#intakeForm" class="bg-white text-postMaroon hover:bg-postLight font-extrabold text-xs sm:text-sm px-5 py-2.5 rounded shadow-md transition">
+                            <span data-en="⚡ File Official Docket Now" data-hi="⚡ अभी शिकायत दर्ज करें">⚡ File Official Docket Now</span>
+                        </a>
+                        <a href="#trackBox" class="bg-black/30 hover:bg-black/40 text-white border border-white/40 font-bold text-xs sm:text-sm px-4 py-2.5 rounded transition">
+                            <span data-en="🔍 Track Existing Case" data-hi="🔍 केस स्टेटस चेक करें">🔍 Track Existing Case</span>
+                        </a>
+                    </div>
                 </div>
 
-                <!-- Decorative Postmark Stamp Wave (Pure SVG) -->
-                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                    <div class="relative z-10">
-                        <div class="flex items-center gap-2">
-                            <span class="text-xl sm:text-2xl font-bold text-postMaroon" data-en="Consumer" data-hi="उपभोक्ता">उपभोक्ता</span>
-                            <span class="w-3 h-3 rounded-full bg-postMaroon inline-block"></span>
-                            <!-- Stamp Wave SVG -->
-                            <svg class="w-16 h-6 text-postMaroon/70" viewBox="0 0 100 30" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M0 5 Q 15 0, 30 5 T 60 5 T 90 5" />
-                                <path d="M0 15 Q 15 10, 30 15 T 60 15 T 90 15" />
-                                <path d="M0 25 Q 15 20, 30 25 T 60 25 T 90 25" />
-                            </svg>
+                <!-- Right Framed Official SLA Card -->
+                <div class="md:col-span-5">
+                    <div class="bg-white rounded-xl p-5 shadow-xl border-2 border-white relative">
+                        <div class="flex items-center justify-between border-b border-slate-200 pb-2.5 mb-3">
+                            <div>
+                                <span class="text-[10px] font-extrabold uppercase text-postMaroon bg-postLight px-2 py-0.5 rounded" data-en="STATUTORY MANDATE" data-hi="कानूनी समय-सीमा">STATUTORY MANDATE</span>
+                                <h3 class="text-sm font-extrabold text-slate-900 mt-1" data-en="48-Hour Nodal SLA Clock" data-hi="48-घंटे में जवाबदेही तय">48-Hour Nodal SLA Clock</h3>
+                            </div>
+                            <div class="w-10 h-10 rounded-lg bg-postMaroon text-white flex items-center justify-center font-extrabold text-xs mono-code">
+                                48H
+                            </div>
                         </div>
-                        <h2 class="text-4xl sm:text-5xl font-extrabold text-postMaroon tracking-tight mt-0.5" data-en="SAMVAD" data-hi="संवाद">संवाद</h2>
-                        <p class="text-xs font-bold text-postMaroon mt-1" data-en="NOVEMBER 2026 EDITION • DIRECT NODAL ACTION" data-hi="नवंबर 2026 • सीधा नोडल अधिकारी एक्शन">नवंबर 2026 • सीधा नोडल अधिकारी एक्शन</p>
-                    </div>
 
-                    <!-- Right side pure CSS Info Card inside Banner -->
-                    <div class="bg-white/90 backdrop-blur border-l-4 border-postMaroon p-3.5 rounded shadow-sm max-w-xs">
-                        <p class="text-xs font-bold text-slate-800" data-en="48-Hour Mandatory Acknowledgement" data-hi="48 घंटे में शिकायत की सुनवाई अनिवार्य">48 घंटे में शिकायत की सुनवाई अनिवार्य</p>
-                        <p class="text-[11px] text-slate-600 mt-1 leading-snug" data-en="Automated legal notice generation for stuck E-Commerce refunds & failed UPI debits." data-hi="अटके हुए ई-कॉमर्स रिफंड और फेल UPI ट्रांजैक्शन के लिए ऑटोमेटेड लीगल नोटिस इंजन।">अटके हुए ई-कॉमर्स रिफंड और फेल UPI ट्रांजैक्शन के लिए ऑटोमेटेड लीगल नोटिस इंजन।</p>
-                    </div>
-                </div>
-
-                <!-- Left/Right Slider Arrows (Pure UI) -->
-                <button class="hidden sm:flex absolute left-0 top-1/2 -translate-y-1/2 bg-black/80 text-white w-7 h-9 items-center justify-center text-sm font-bold">&lt;</button>
-                <button class="hidden sm:flex absolute right-0 top-1/2 -translate-y-1/2 bg-black/80 text-white w-7 h-9 items-center justify-center text-sm font-bold">&gt;</button>
-
-                <!-- Bottom Slider Dots Indicator -->
-                <div class="mt-4 flex justify-end items-center gap-2">
-                    <div class="bg-white px-3 py-1 rounded-full shadow-sm flex items-center gap-1.5 border border-slate-200">
-                        <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
-                        <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
-                        <span class="w-2 h-2 rounded-full bg-postMaroon"></span>
-                        <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
-                        <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+                        <ul class="space-y-2 text-xs text-slate-700 font-medium">
+                            <li class="flex items-start gap-2">
+                                <span class="text-emerald-600 font-bold">✔</span>
+                                <span data-en="Rule 4(4) E-Commerce Rules, 2020: Mandatory grievance acknowledgement within 48 hours." data-hi="ई-कॉमर्स नियम 2020 के तहत 48 घंटे में शिकायत दर्ज करना अनिवार्य।">Rule 4(4) E-Commerce Rules, 2020: Mandatory grievance acknowledgement within 48 hours.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-emerald-600 font-bold">✔</span>
+                                <span data-en="RBI TAT Circular: Auto-reversal & compensation for failed UPI / IMPS / ATM debits." data-hi="RBI नियमों के तहत फेल UPI या बैंक ट्रांजैक्शन का समय पर रिफंड।">RBI TAT Circular: Auto-reversal & compensation for failed UPI / IMPS / ATM debits.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-emerald-600 font-bold">✔</span>
+                                <span data-en="Verified Nodal Officer Directory for 500+ Indian Brands & Banks." data-hi="500+ कंपनियों और बैंकों के वेरिफाइड नोडल ईमेल डेटाबेस से जुड़ा।">Verified Nodal Officer Directory for 500+ Indian Brands & Banks.</span>
+                            </li>
+                        </ul>
                     </div>
                 </div>
+
             </div>
         </section>
 
-        <!-- 4. ANNOUNCEMENTS TICKER BAR (Exact Match with Megaphone & Pause Button) -->
-        <div class="bg-[#DCDCDC] border-b border-slate-300 py-2 px-3">
-            <div class="max-w-4xl mx-auto flex items-center justify-between gap-2">
-                <div class="flex items-center gap-1.5 shrink-0 text-postMaroon font-bold text-xs">
-                    <span data-en="Announcements" data-hi="सूचनाएं">Announcements</span>
-                    <!-- Megaphone SVG -->
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <!-- ================================================================= -->
+        <!-- 5. ANNOUNCEMENTS TICKER BAR (With Megaphone & Pause Button)       -->
+        <!-- ================================================================= -->
+        <div class="bg-[#EAEAEA] border-b border-slate-300 py-2 px-3">
+            <div class="max-w-5xl mx-auto flex items-center justify-between gap-2">
+                <div class="flex items-center gap-1.5 shrink-0 bg-postMaroon text-white px-2.5 py-1 rounded text-[11px] font-bold">
+                    <span data-en="Announcements" data-hi="महत्वपूर्ण सूचना">Announcements</span>
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"/>
                     </svg>
                 </div>
 
-                <!-- Scrolling Marquee Text -->
                 <div class="overflow-hidden flex-1 mx-2">
-                    <div id="tickerText" class="ticker-move text-xs text-slate-800 font-medium">
-                        use only the official ClaimX portal (claimx.in) for filing nodal escalations. Under Consumer Protection (E-Commerce) Rules, companies must acknowledge grievances within 48 hours.
+                    <div id="tickerText" class="ticker-move text-xs text-slate-800 font-semibold">
+                        <span data-en=" Citizens are advised to use only the official ClaimX portal (claimx.in) for filing nodal escalations. | Under Consumer Protection Rules, e-commerce entities must appoint a Nodal Officer and acknowledge grievances within 48 hours. | ClaimX never asks for your UPI PIN or Bank OTP." data-hi=" नागरिकों को सलाह दी जाती है कि नोडल शिकायत के लिए केवल आधिकारिक पोर्टल (claimx.in) का ही उपयोग करें। | उपभोक्ता संरक्षण नियमों के तहत कंपनियों को 48 घंटे में शिकायत का संज्ञान लेना अनिवार्य है। | ClaimX कभी भी आपसे बैंक OTP या UPI पिन नहीं मांगता है।">
+                            Citizens are advised to use only the official ClaimX portal (claimx.in) for filing nodal escalations. | Under Consumer Protection Rules, e-commerce entities must appoint a Nodal Officer and acknowledge grievances within 48 hours. | ClaimX never asks for your UPI PIN or Bank OTP.
+                        </span>
                     </div>
                 </div>
 
-                <!-- Pause / Play Button -->
-                <button onclick="toggleTicker()" class="shrink-0 text-postMaroon font-extrabold px-1.5 py-0.5 text-xs border border-postMaroon/30 rounded hover:bg-white/50" title="Pause/Play">
+                <button onclick="toggleTicker()" class="shrink-0 text-postMaroon font-extrabold px-2 py-0.5 text-xs border border-postMaroon/40 rounded bg-white hover:bg-postLight" title="Pause/Play">
                     ||
                 </button>
             </div>
         </div>
 
-        <!-- 5. MAIN ACTION SECTION: FILE GRIEVANCE & TRACK DOCKET -->
-        <main class="max-w-4xl mx-auto px-4 py-6 space-y-8">
+        <!-- ================================================================= -->
+        <!-- 6. MAIN PORTAL BODY                                               -->
+        <!-- ================================================================= -->
+        <main class="max-w-5xl mx-auto px-4 py-8 space-y-10">
 
-            <!-- Quick Service Tabs (India Post Style Grid) -->
-            <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden" id="intakeForm">
+            <!-- A. NATIONAL CAMPAIGN STRIP (Like Screenshot 1 "Azadi Ka Amrit" Banner, 100% Legal Safe) -->
+            <div class="bg-gradient-to-r from-[#FDF6EC] via-[#F9EFE0] to-[#FDF6EC] border border-amber-300/80 rounded-xl p-4 sm:p-5 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-sm">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-full bg-postMaroon text-amber-300 flex items-center justify-center shrink-0 font-extrabold text-xl shadow">
+                        ⚖️
+                    </div>
+                    <div>
+                        <span class="text-[10px] font-extrabold uppercase tracking-widest text-amber-800" data-en="NATIONAL CONSUMER AWARENESS DRIVE 2026" data-hi="राष्ट्रीय उपभोक्ता जागरूकता अभियान 2026">NATIONAL CONSUMER AWARENESS DRIVE 2026</span>
+                        <h3 class="text-base sm:text-lg font-extrabold text-postMaroon" data-en="Empowered Consumer, Accountable Corporations (सशक्त उपभोक्ता)" data-hi="सशक्त उपभोक्ता, जवाबदेह कंपनियां — हर नागरिक का डिजिटल अधिकार">Empowered Consumer, Accountable Corporations (सशक्त उपभोक्ता)</h3>
+                        <p class="text-xs text-slate-600" data-en="Bridging the gap between ordinary citizens and corporate Nodal Grievance Desks through AI legal documentation." data-hi="एआई (AI) लीगल डॉक्यूमेंटेशन के माध्यम से आम नागरिक की आवाज़ सीधे कंपनी के शीर्ष नोडल अधिकारियों तक पहुँचाने की पहल।">Bridging the gap between ordinary citizens and corporate Nodal Grievance Desks through AI legal documentation.</p>
+                    </div>
+                </div>
+                <div class="shrink-0 text-right hidden sm:block border-l border-amber-300 pl-4">
+                    <span class="text-xs font-extrabold text-postMaroon block">CP ACT, 2019</span>
+                    <span class="text-[10px] text-slate-500 font-semibold">Digital Redressal</span>
+                </div>
+            </div>
+
+            <!-- B. MAIN GRIEVANCE INTAKE FORM -->
+            <div class="bg-white rounded-xl shadow-md border border-slate-200 overflow-hidden" id="intakeForm">
                 <div class="bg-postMaroon text-white px-5 py-3.5 flex justify-between items-center">
                     <h3 class="font-bold text-sm sm:text-base flex items-center gap-2">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
                         </svg>
-                        <span data-en="Register Official Consumer Grievance Docket" data-hi="आधिकारिक उपभोक्ता शिकायत डॉकेट दर्ज करें">Register Official Consumer Grievance Docket</span>
+                        <span data-en="Register Official Consumer Grievance Docket (Form CLX-01)" data-hi="आधिकारिक उपभोक्ता शिकायत डॉकेट दर्ज करें (फॉर्म CLX-01)">Register Official Consumer Grievance Docket (Form CLX-01)</span>
                     </h3>
-                    <span class="text-[11px] bg-white/20 px-2 py-0.5 rounded font-semibold">60-Sec AI Routing</span>
+                    <span class="text-[11px] bg-white/20 px-2.5 py-0.5 rounded font-semibold mono-code">60-Sec AI Routing</span>
                 </div>
 
-                <form class="p-5 sm:p-6 space-y-5" onsubmit="handleFormSubmit(event)">
-                    <!-- Category Pills -->
+                <form class="p-5 sm:p-7 space-y-5" onsubmit="handleFormSubmit(event)">
+                    <!-- 1. Category Pills -->
                     <div>
-                        <label class="block text-xs font-bold text-slate-700 uppercase mb-2" data-en="1. Select Sector / Category *" data-hi="1. शिकायत की श्रेणी चुनें *">1. Select Sector / Category *</label>
+                        <label class="block text-xs font-bold text-slate-700 uppercase mb-2" data-en="1. Select Dispute Sector / Category *" data-hi="1. शिकायत की श्रेणी चुनें *">1. Select Dispute Sector / Category *</label>
                         <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
                             <label class="cursor-pointer">
                                 <input type="radio" name="sector" value="E-Commerce" class="peer sr-only" checked>
-                                <div class="border border-slate-300 rounded-lg p-3 text-center peer-checked:border-postMaroon peer-checked:bg-postLight peer-checked:text-postMaroon font-semibold text-xs transition">
-                                    🛒 E-Commerce
+                                <div class="border border-slate-300 rounded-lg p-3 text-center peer-checked:border-postMaroon peer-checked:bg-postLight peer-checked:text-postMaroon font-bold text-xs transition">
+                                    🛒 <span data-en="E-Commerce" data-hi="ई-कॉमर्स शॉपिंग">E-Commerce</span>
                                 </div>
                             </label>
                             <label class="cursor-pointer">
                                 <input type="radio" name="sector" value="Food & Quick Delivery" class="peer sr-only">
-                                <div class="border border-slate-300 rounded-lg p-3 text-center peer-checked:border-postMaroon peer-checked:bg-postLight peer-checked:text-postMaroon font-semibold text-xs transition">
-                                    🍔 Food / Delivery
+                                <div class="border border-slate-300 rounded-lg p-3 text-center peer-checked:border-postMaroon peer-checked:bg-postLight peer-checked:text-postMaroon font-bold text-xs transition">
+                                    🍔 <span data-en="Food / Quick App" data-hi="फूड / क्विक डिलीवरी">Food / Quick App</span>
                                 </div>
                             </label>
                             <label class="cursor-pointer">
                                 <input type="radio" name="sector" value="Banking & UPI" class="peer sr-only">
-                                <div class="border border-slate-300 rounded-lg p-3 text-center peer-checked:border-postMaroon peer-checked:bg-postLight peer-checked:text-postMaroon font-semibold text-xs transition">
-                                    🏦 Banking / UPI
+                                <div class="border border-slate-300 rounded-lg p-3 text-center peer-checked:border-postMaroon peer-checked:bg-postLight peer-checked:text-postMaroon font-bold text-xs transition">
+                                    🏦 <span data-en="Banking & UPI" data-hi="बैंकिंग और UPI">Banking & UPI</span>
                                 </div>
                             </label>
                             <label class="cursor-pointer">
                                 <input type="radio" name="sector" value="Brand Warranty" class="peer sr-only">
-                                <div class="border border-slate-300 rounded-lg p-3 text-center peer-checked:border-postMaroon peer-checked:bg-postLight peer-checked:text-postMaroon font-semibold text-xs transition">
-                                    📱 Warranty / Telecom
+                                <div class="border border-slate-300 rounded-lg p-3 text-center peer-checked:border-postMaroon peer-checked:bg-postLight peer-checked:text-postMaroon font-bold text-xs transition">
+                                    📱 <span data-en="Warranty / Telecom" data-hi="वारंटी / टेलीकॉम">Warranty / Telecom</span>
                                 </div>
                             </label>
                         </div>
                     </div>
 
-                    <!-- Company & Disputed Amount -->
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <!-- 2. Company, Amount & Order ID -->
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
                         <div>
                             <label class="block text-xs font-bold text-slate-700 uppercase mb-1" data-en="2. Respondent Company / Bank *" data-hi="2. संबंधित कंपनी या बैंक का नाम *">2. Respondent Company / Bank *</label>
-                            <select id="companySelect" class="w-full border border-slate-300 border-b-2 border-b-postMaroon rounded px-3 py-2.5 text-xs sm:text-sm bg-white focus:outline-none">
+                            <select id="companySelect" class="w-full border border-slate-300 border-b-2 border-b-postMaroon rounded px-3 py-2.5 text-xs sm:text-sm bg-white font-semibold focus:outline-none">
                                 <option value="Flipkart">Flipkart Internet Pvt. Ltd.</option>
                                 <option value="Amazon">Amazon Seller Services Pvt. Ltd.</option>
                                 <option value="Zomato">Zomato Ltd.</option>
                                 <option value="Swiggy">Swiggy (Bundl Technologies)</option>
                                 <option value="Blinkit">Blinkit Commerce Pvt. Ltd.</option>
+                                <option value="Zepto">Zepto (KiranaKart Technologies)</option>
                                 <option value="Meesho">Meesho (Fashnear Technologies)</option>
                                 <option value="SBI">State Bank of India (SBI)</option>
                                 <option value="HDFC">HDFC Bank Ltd.</option>
@@ -285,33 +366,37 @@
                         </div>
                         <div>
                             <label class="block text-xs font-bold text-slate-700 uppercase mb-1" data-en="3. Disputed Claim Amount (₹) *" data-hi="3. फंसी हुई या काटी गई राशि (₹) *">3. Disputed Claim Amount (₹) *</label>
-                            <input type="number" id="claimAmount" placeholder="e.g. 1499" required class="w-full border border-slate-300 border-b-2 border-b-postMaroon rounded px-3 py-2 text-xs sm:text-sm focus:outline-none">
+                            <input type="number" id="claimAmount" placeholder="e.g. 1499" required class="w-full border border-slate-300 border-b-2 border-b-postMaroon rounded px-3 py-2 text-xs sm:text-sm font-bold mono-code focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase mb-1" data-en="4. Order ID / Bank UTR No." data-hi="4. ऑर्डर आईडी / बैंक UTR नंबर">4. Order ID / Bank UTR No.</label>
+                            <input type="text" id="orderRefInput" placeholder="e.g. OD4298109283" class="w-full border border-slate-300 border-b-2 border-b-postMaroon rounded px-3 py-2 text-xs sm:text-sm mono-code focus:outline-none">
                         </div>
                     </div>
 
-                    <!-- Upload Proof Box (Pure SVG Icon, No Image) -->
+                    <!-- 3. Upload Proof Box -->
                     <div>
-                        <label class="block text-xs font-bold text-slate-700 uppercase mb-1" data-en="4. Upload Transaction / Order Evidence (Screenshot) *" data-hi="4. ऑर्डर या ट्रांजैक्शन का स्क्रीनशॉट अपलोड करें *">4. Upload Transaction / Order Evidence (Screenshot) *</label>
+                        <label class="block text-xs font-bold text-slate-700 uppercase mb-1" data-en="5. Upload Transaction / Order Evidence (Screenshot) *" data-hi="5. ऑर्डर या ट्रांजैक्शन का स्क्रीनशॉट अपलोड करें *">5. Upload Transaction / Order Evidence (Screenshot) *</label>
                         <label class="border-2 border-dashed border-postMaroon/40 bg-postLight/50 hover:bg-postLight rounded-xl p-5 flex flex-col items-center justify-center cursor-pointer transition text-center">
                             <svg class="w-8 h-8 text-postMaroon mb-1.5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/>
                             </svg>
                             <span id="fileNameDisplay" class="text-xs font-bold text-postMaroon" data-en="Tap to Upload Order / Chat / Bank Screenshot" data-hi="स्क्रीनशॉट चुनने के लिए यहाँ टैप करें">Tap to Upload Order / Chat / Bank Screenshot</span>
-                            <span class="text-[11px] text-slate-500 mt-0.5">Automated AI OCR extracts Order ID & UTR</span>
-                            <input type="file" class="hidden" accept="image/*,.pdf" onchange="if(this.files[0]) document.getElementById('fileNameDisplay').innerText = 'Selected: ' + this.files[0].name">
+                            <span class="text-[11px] text-slate-500 mt-0.5" data-en="Automated AI OCR extracts Order ID, Date & Disputed Sum" data-hi="AI सिस्टम स्क्रीनशॉट से अपने आप ऑर्डर आईडी और राशि पढ़ लेगा">Automated AI OCR extracts Order ID, Date & Disputed Sum</span>
+                            <input type="file" class="hidden" accept="image/*,.pdf" onchange="if(this.files[0]) document.getElementById('fileNameDisplay').innerText = '✔ Evidence Attached: ' + this.files[0].name">
                         </label>
                     </div>
 
-                    <!-- Brief Issue -->
+                    <!-- 4. Brief Issue -->
                     <div>
-                        <label class="block text-xs font-bold text-slate-700 uppercase mb-1" data-en="5. Grievance Particulars (Brief Details)" data-hi="5. समस्या का संक्षिप्त विवरण">5. Grievance Particulars (Brief Details)</label>
+                        <label class="block text-xs font-bold text-slate-700 uppercase mb-1" data-en="6. Grievance Particulars (Brief Statement)" data-hi="6. समस्या का संक्षिप्त विवरण (हिंदी या English में)">6. Grievance Particulars (Brief Statement)</label>
                         <textarea rows="2" placeholder="Write 1-2 lines in Hindi or English about your issue..." class="w-full border border-slate-300 rounded p-2.5 text-xs sm:text-sm focus:outline-none focus:border-postMaroon"></textarea>
                     </div>
 
-                    <!-- Mandatory Consent -->
+                    <!-- 5. Mandatory Consent -->
                     <div class="flex items-start gap-2.5 bg-slate-50 p-3 rounded border border-slate-200">
-                        <input type="checkbox" required class="mt-0.5 accent-postMaroon">
-                        <p class="text-[11px] text-slate-600 leading-relaxed" data-en="I hereby authorize ClaimX to draft my formal consumer grievance dossier and dispatch it to the respective Nodal Officer. I understand ClaimX is an independent technology platform and not a government agency or law firm." data-hi="मैं ClaimX को अपनी शिकायत का आधिकारिक ड्राफ्ट तैयार करने और संबंधित कंपनी के नोडल अधिकारी को भेजने के लिए अधिकृत करता हूँ। मैं समझता हूँ कि ClaimX एक स्वतंत्र टेक प्लेटफॉर्म है।">
+                        <input type="checkbox" required checked class="mt-0.5 accent-postMaroon">
+                        <p class="text-[11px] text-slate-600 leading-relaxed" data-en="I hereby authorize ClaimX to draft my formal consumer grievance dossier and dispatch it to the respective Nodal Officer. I understand ClaimX is an independent technology platform and not a government agency or law firm." data-hi="मैं ClaimX को अपनी शिकायत का आधिकारिक ड्राफ्ट तैयार करने और संबंधित कंपनी के नोडल अधिकारी को भेजने के लिए अधिकृत करता हूँ। मैं समझता हूँ कि ClaimX एक स्वतंत्र टेक प्लेटफॉर्म है, न कि कोई सरकारी संस्था।">
                             I hereby authorize ClaimX to draft my formal consumer grievance dossier and dispatch it to the respective Nodal Officer. I understand ClaimX is an independent technology platform and not a government agency or law firm.
                         </p>
                     </div>
@@ -323,89 +408,388 @@
                 </form>
             </div>
 
-            <!-- 6. OFFICIAL QUOTE & CHARTER SECTION (Exact Screenshot 2 & 3 Layout without Photo) -->
-            <section id="charter" class="bg-[#F2F2F2] rounded-xl p-6 sm:p-8 border border-slate-200">
-                <!-- Circular Emblem Graphic Instead of Portrait Photo -->
-                <div class="w-28 h-28 mx-auto rounded-full bg-white shadow-md border-4 border-white flex flex-col items-center justify-center text-postMaroon mb-6">
-                    <svg class="w-12 h-12" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"/>
-                    </svg>
-                    <span class="text-[9px] font-extrabold tracking-widest uppercase mt-1 text-slate-700">JUSTICE FIRST</span>
+            <!-- ============================================================= -->
+            <!-- C. 4-CARD PROCESS GRID (Matches Screenshot 1 "ITEC" 4 Cards)  -->
+            <!-- ============================================================= -->
+            <section id="howItWorks" class="space-y-4">
+                <div class="text-center space-y-1">
+                    <span class="text-[10px] font-extrabold uppercase tracking-widest text-postMaroon" data-en="STANDARDIZED ESCALATION PROTOCOL" data-hi="मानकीकृत शिकायत निवारण प्रक्रिया">STANDARDIZED ESCALATION PROTOCOL</span>
+                    <h3 class="text-lg sm:text-xl font-extrabold text-slate-900" data-en="How ClaimX Automated Nodal Redressal Works" data-hi="ClaimX का स्वचालित नोडल सिस्टम कैसे काम करता है?">How ClaimX Automated Nodal Redressal Works</h3>
                 </div>
 
-                <!-- Large Maroon Opening Quote -->
-                <div class="text-5xl font-serif text-postMaroon leading-none mb-2">“</div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <!-- Card 1 -->
+                    <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm hover:shadow-md transition flex flex-col justify-between">
+                        <div>
+                            <div class="w-10 h-10 rounded-lg bg-postLight text-postMaroon flex items-center justify-center font-extrabold text-base mb-3 border border-postMaroon/20">
+                                01
+                            </div>
+                            <h4 class="font-extrabold text-sm text-slate-900" data-en="AI Evidence OCR Scan" data-hi="1. स्क्रीनशॉट की AI जांच">AI Evidence OCR Scan</h4>
+                            <p class="text-xs text-slate-600 mt-1.5 leading-relaxed" data-en="Upload your order, chat, or bank screenshot. Our AI extracts the Order ID, UTR, and disputed sum." data-hi="अपना फेल ट्रांजैक्शन या ऑर्डर स्क्रीनशॉट अपलोड करें। सिस्टम अपने आप ऑर्डर आईडी और राशि निकाल लेता है।">Upload your order, chat, or bank screenshot. Our AI extracts the Order ID, UTR, and disputed sum.</p>
+                        </div>
+                        <a href="#intakeForm" class="text-[11px] font-extrabold text-postMaroon mt-4 inline-block hover:underline" data-en="Upload Proof →" data-hi="प्रूफ अपलोड करें →">Upload Proof &rarr;</a>
+                    </div>
 
-                <!-- Maroon Quote Paragraph (Exact Font Weight & Color as Screenshot) -->
-                <p class="text-lg sm:text-xl font-medium text-postText leading-relaxed" data-en="Every consumer in India has the statutory right to fair redressal. When customer care chatbots fail to resolve genuine refund disputes, structured escalation to designated Nodal Officers ensures accountability and timely recovery." data-hi="भारत के प्रत्येक उपभोक्ता को निष्पक्ष सुनवाई का कानूनी अधिकार है। जब सामान्य कस्टमर केयर चैटबॉट्स आपका रिफंड रोक देते हैं, तो सही कानूनी नियमों के साथ सीधे नोडल अधिकारी तक शिकायत पहुँचाना ही समाधान का सबसे सशक्त रास्ता है।">
+                    <!-- Card 2 -->
+                    <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm hover:shadow-md transition flex flex-col justify-between">
+                        <div>
+                            <div class="w-10 h-10 rounded-lg bg-postLight text-postMaroon flex items-center justify-center font-extrabold text-base mb-3 border border-postMaroon/20">
+                                02
+                            </div>
+                            <h4 class="font-extrabold text-sm text-slate-900" data-en="Statutory Law Mapping" data-hi="2. कानूनी धाराओं की मैपिंग">Statutory Law Mapping</h4>
+                            <p class="text-xs text-slate-600 mt-1.5 leading-relaxed" data-en="System maps Section 2(11) CP Act 2019, E-Commerce Rules 2020, or RBI TAT penalties to your case." data-hi="आपकी शिकायत में उपभोक्ता संरक्षण अधिनियम 2019 और RBI के सख्त नियमों को जोड़ा जाता है।">System maps Section 2(11) CP Act 2019, E-Commerce Rules 2020, or RBI TAT penalties to your case.</p>
+                        </div>
+                        <a href="#noticeBoard" class="text-[11px] font-extrabold text-postMaroon mt-4 inline-block hover:underline" data-en="View Laws →" data-hi="नियम देखें →">View Laws &rarr;</a>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm hover:shadow-md transition flex flex-col justify-between">
+                        <div>
+                            <div class="w-10 h-10 rounded-lg bg-postLight text-postMaroon flex items-center justify-center font-extrabold text-base mb-3 border border-postMaroon/20">
+                                03
+                            </div>
+                            <h4 class="font-extrabold text-sm text-slate-900" data-en="Direct Nodal Dispatch" data-hi="3. सीधा नोडल अधिकारी को नोटिस">Direct Nodal Dispatch</h4>
+                            <p class="text-xs text-slate-600 mt-1.5 leading-relaxed" data-en="Formal Pre-Litigation Dossier is dispatched directly to the company's Level-2 Nodal Officer with you on CC." data-hi="कंपनी के सामान्य कस्टमर केयर को छोड़कर सीधे उच्च नोडल अधिकारी को आधिकारिक ईमेल भेजा जाता है।">Formal Pre-Litigation Dossier is dispatched directly to the company's Level-2 Nodal Officer with you on CC.</p>
+                        </div>
+                        <a href="#intakeForm" class="text-[11px] font-extrabold text-postMaroon mt-4 inline-block hover:underline" data-en="Start Dispatch →" data-hi="नोटिस भेजें →">Start Dispatch &rarr;</a>
+                    </div>
+
+                    <!-- Card 4 -->
+                    <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm hover:shadow-md transition flex flex-col justify-between">
+                        <div>
+                            <div class="w-10 h-10 rounded-lg bg-postLight text-postMaroon flex items-center justify-center font-extrabold text-base mb-3 border border-postMaroon/20">
+                                04
+                            </div>
+                            <h4 class="font-extrabold text-sm text-slate-900" data-en="48-Hr SLA & NCH File" data-hi="48-घंटे टाइमर व रिफंड">48-Hr SLA & NCH File</h4>
+                            <p class="text-xs text-slate-600 mt-1.5 leading-relaxed" data-en="Live 48-hour countdown tracks company response. If unresolved, download ready-to-file NCH/RBI PDF." data-hi="48-घंटे का लाइव टाइमर कंपनी के जवाब को ट्रैक करता है। समाधान न होने पर Level-2 फाइल तैयार मिलती है।">Live 48-hour countdown tracks company response. If unresolved, download ready-to-file NCH/RBI PDF.</p>
+                        </div>
+                        <a href="#trackBox" class="text-[11px] font-extrabold text-postMaroon mt-4 inline-block hover:underline" data-en="Track SLA →" data-hi="टाइमर देखें →">Track SLA &rarr;</a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================================================= -->
+            <!-- D. 3-COLUMN GOV NOTICE BOARD (Matches Screenshot 1 "What's New")-->
+            <!-- ============================================================= -->
+            <section id="noticeBoard" class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                
+                <!-- Column 1: What's New / Statutory Circulars -->
+                <div class="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden">
+                    <div class="bg-slate-900 text-white px-4 py-3 flex justify-between items-center">
+                        <h4 class="text-xs font-extrabold uppercase tracking-wider" data-en="📋 Statutory Rules & Circulars" data-hi="📋 कानूनी नियम एवं सर्कुलर">📋 Statutory Rules & Circulars</h4>
+                        <span class="text-[10px] bg-govSaffron px-2 py-0.5 rounded font-bold">NEW</span>
+                    </div>
+                    <div class="p-4 h-56 overflow-y-auto gov-scroll space-y-3 text-xs divide-y divide-slate-100">
+                        <div class="pt-1">
+                            <span class="text-[10px] font-bold text-postMaroon mono-code">RULE 4(4) • E-COMMERCE</span>
+                            <p class="font-semibold text-slate-800 mt-0.5" data-en="Every e-commerce entity must appoint a Nodal Officer and acknowledge consumer grievances within 48 hours." data-hi="प्रत्येक ई-कॉमर्स कंपनी को नोडल अधिकारी नियुक्त करना और 48 घंटे में शिकायत स्वीकार करना अनिवार्य है।">Every e-commerce entity must appoint a Nodal Officer and acknowledge consumer grievances within 48 hours.</p>
+                        </div>
+                        <div class="pt-2.5">
+                            <span class="text-[10px] font-bold text-emerald-700 mono-code">RBI CIRCULAR • UPI / IMPS</span>
+                            <p class="font-semibold text-slate-800 mt-0.5" data-en="Harmonisation of Turn Around Time (TAT): Banks must auto-reverse failed UPI debits within T+1 day or pay ₹100/day penalty." data-hi="RBI नियम: फेल UPI या बैंक कटौती को T+1 दिन में वापस करना अनिवार्य है, देरी पर ₹100/दिन मुआवजे का नियम है।">Harmonisation of Turn Around Time (TAT): Banks must auto-reverse failed UPI debits within T+1 day or pay ₹100/day penalty.</p>
+                        </div>
+                        <div class="pt-2.5">
+                            <span class="text-[10px] font-bold text-blue-700 mono-code">SECTION 2(11) • CP ACT 2019</span>
+                            <p class="font-semibold text-slate-800 mt-0.5" data-en="Withholding legitimate refunds or delivering damaged/wrong items constitutes formal Deficiency in Service." data-hi="सही रिफंड रोकना या गलत/टूटा सामान देकर वापस न लेना 'सेवा में कमी' (Deficiency in Service) के अंतर्गत दंडनीय है।">Withholding legitimate refunds or delivering damaged/wrong items constitutes formal Deficiency in Service.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Column 2: Live Dispatched Dockets Feed -->
+                <div class="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden">
+                    <div class="bg-postMaroon text-white px-4 py-3 flex justify-between items-center">
+                        <h4 class="text-xs font-extrabold uppercase tracking-wider" data-en="⚡ Recent Nodal Dispatches" data-hi="⚡ हाल ही में भेजे गए नोटिस">⚡ Recent Nodal Dispatches</h4>
+                        <span class="text-[10px] text-amber-200 font-bold mono-code">● LIVE FEED</span>
+                    </div>
+                    <div class="p-4 h-56 overflow-y-auto gov-scroll space-y-3 text-xs divide-y divide-slate-100">
+                        <div class="pt-1">
+                            <div class="flex justify-between">
+                                <span class="font-bold text-postMaroon mono-code">#CLX-2026-8941</span>
+                                <span class="text-[10px] bg-emerald-100 text-emerald-800 px-1.5 py-0.5 rounded font-bold">REFUNDED ₹2,499</span>
+                            </div>
+                            <p class="text-slate-600 mt-0.5" data-en="Flipkart Internet Pvt. Ltd. • Dispatched to Nodal Desk (Resolved in 19 hrs)" data-hi="फ्लिपकार्ट • नोडल अधिकारी को नोटिस भेजा गया (19 घंटे में रिफंड प्राप्त)">Flipkart Internet Pvt. Ltd. • Dispatched to Nodal Desk (Resolved in 19 hrs)</p>
+                        </div>
+                        <div class="pt-2.5">
+                            <div class="flex justify-between">
+                                <span class="font-bold text-postMaroon mono-code">#CLX-2026-8938</span>
+                                <span class="text-[10px] bg-blue-100 text-blue-800 px-1.5 py-0.5 rounded font-bold">DISPATCHED ₹640</span>
+                            </div>
+                            <p class="text-slate-600 mt-0.5" data-en="Zomato Ltd. • Missing order refund notice routed to nodal@zomato.com" data-hi="ज़ोमैटो • अधूरा ऑर्डर रिफंड नोटिस सीधे नोडल डेस्क को भेजा गया">Zomato Ltd. • Missing order refund notice routed to nodal@zomato.com</p>
+                        </div>
+                        <div class="pt-2.5">
+                            <div class="flex justify-between">
+                                <span class="font-bold text-postMaroon mono-code">#CLX-2026-8932</span>
+                                <span class="text-[10px] bg-emerald-100 text-emerald-800 px-1.5 py-0.5 rounded font-bold">CREDITED ₹4,500</span>
+                            </div>
+                            <p class="text-slate-600 mt-0.5" data-en="SBI / PhonePe UPI • Failed transaction reversal under RBI TAT Circular" data-hi="SBI / PhonePe • फेल ट्रांजैक्शन की राशि RBI नियम के तहत वापस मिली">SBI / PhonePe UPI • Failed transaction reversal under RBI TAT Circular</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Column 3: Verified Corporate Nodal Directory -->
+                <div class="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden">
+                    <div class="bg-slate-900 text-white px-4 py-3 flex justify-between items-center">
+                        <h4 class="text-xs font-extrabold uppercase tracking-wider" data-en="🏢 Verified Nodal Desks" data-hi="🏢 वेरिफाइड नोडल डायरेक्टरी">🏢 Verified Nodal Desks</h4>
+                        <span class="text-[10px] text-emerald-400 font-bold">500+ BRANDS</span>
+                    </div>
+                    <div class="p-4 h-56 overflow-y-auto gov-scroll space-y-2.5 text-xs">
+                        <div class="bg-slate-50 p-2.5 rounded border border-slate-200 flex justify-between items-center">
+                            <div>
+                                <p class="font-bold text-slate-900">Flipkart & Myntra</p>
+                                <p class="text-[10px] text-slate-500 mono-code">Level-2 Nodal Officer Active</p>
+                            </div>
+                            <span class="text-emerald-700 font-bold text-[10px]">● Verified</span>
+                        </div>
+                        <div class="bg-slate-50 p-2.5 rounded border border-slate-200 flex justify-between items-center">
+                            <div>
+                                <p class="font-bold text-slate-900">Amazon India</p>
+                                <p class="text-[10px] text-slate-500 mono-code">Grievance Officer Desk Active</p>
+                            </div>
+                            <span class="text-emerald-700 font-bold text-[10px]">● Verified</span>
+                        </div>
+                        <div class="bg-slate-50 p-2.5 rounded border border-slate-200 flex justify-between items-center">
+                            <div>
+                                <p class="font-bold text-slate-900">Zomato / Swiggy / Blinkit</p>
+                                <p class="text-[10px] text-slate-500 mono-code">Quick-Commerce Nodal Active</p>
+                            </div>
+                            <span class="text-emerald-700 font-bold text-[10px]">● Verified</span>
+                        </div>
+                        <div class="bg-slate-50 p-2.5 rounded border border-slate-200 flex justify-between items-center">
+                            <div>
+                                <p class="font-bold text-slate-900">SBI / HDFC / ICICI / UPI</p>
+                                <p class="text-[10px] text-slate-500 mono-code">Principal Nodal Officer Active</p>
+                            </div>
+                            <span class="text-emerald-700 font-bold text-[10px]">● Verified</span>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- ============================================================= -->
+            <!-- E. OFFICIAL QUOTE & CHARTER SECTION                           -->
+            <!-- ============================================================= -->
+            <section id="charter" class="bg-[#F2EFE9] rounded-xl p-6 sm:p-8 border border-slate-300">
+                <div class="w-24 h-24 mx-auto rounded-full bg-white shadow-md border-4 border-white flex flex-col items-center justify-center text-postMaroon mb-5">
+                    <svg class="w-10 h-10" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"/>
+                    </svg>
+                    <span class="text-[8px] font-extrabold tracking-widest uppercase mt-1 text-slate-700">JUSTICE FIRST</span>
+                </div>
+
+                <div class="text-4xl font-serif text-postMaroon leading-none mb-1">“</div>
+
+                <p class="text-base sm:text-xl font-medium text-postText leading-relaxed" data-en="Every consumer in India has the statutory right to fair redressal. When customer care chatbots fail to resolve genuine refund disputes, structured escalation to designated Nodal Officers ensures accountability and timely recovery." data-hi="भारत के प्रत्येक उपभोक्ता को निष्पक्ष सुनवाई का कानूनी अधिकार है। जब सामान्य कस्टमर केयर चैटबॉट्स आपका रिफंड रोक देते हैं, तो सही कानूनी नियमों के साथ सीधे नोडल अधिकारी तक शिकायत पहुँचाना ही समाधान का सबसे सशक्त रास्ता है।">
                     Every consumer in India has the statutory right to fair redressal. When customer care chatbots fail to resolve genuine refund disputes, structured escalation to designated Nodal Officers ensures accountability and timely recovery.
                 </p>
 
-                <!-- Large Maroon Closing Quote -->
-                <div class="text-5xl font-serif text-postMaroon leading-none mt-3 mb-6">”</div>
+                <div class="text-4xl font-serif text-postMaroon leading-none mt-2 mb-4">”</div>
 
-                <!-- Bottom Row: Title & View More Button (Exact Match) -->
-                <div class="flex flex-wrap items-center justify-between gap-4 pt-2 border-t border-slate-300/70">
+                <div class="flex flex-wrap items-center justify-between gap-4 pt-3 border-t border-slate-300">
                     <div>
-                        <p class="text-xs font-bold uppercase tracking-wider text-slate-800">CONSUMER CHARTER</p>
+                        <p class="text-xs font-bold uppercase tracking-wider text-slate-800" data-en="CONSUMER REDRESSAL CHARTER" data-hi="उपभोक्ता निवारण चार्टर">CONSUMER REDRESSAL CHARTER</p>
                         <p class="text-[11px] text-slate-500 font-semibold">CP ACT, 2019 & RBI TAT MANDATE</p>
                     </div>
 
-                    <a href="#intakeForm" class="inline-flex items-center gap-2 border border-postMaroon text-postMaroon hover:bg-postMaroon hover:text-white text-xs font-bold px-4 py-2.5 rounded transition bg-white">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
-                        </svg>
-                        <span data-en="FILE DOCKET" data-hi="शिकायत दर्ज करें">VIEW MORE</span>
+                    <a href="#intakeForm" class="inline-flex items-center gap-2 border border-postMaroon text-postMaroon hover:bg-postMaroon hover:text-white text-xs font-bold px-4 py-2 rounded transition bg-white">
+                        <span data-en="FILE DOCKET NOW" data-hi="अभी शिकायत दर्ज करें">FILE DOCKET NOW</span>
+                        <span>&rarr;</span>
                     </a>
                 </div>
             </section>
 
-            <!-- 7. QUICK DOCKET TRACKER BOX -->
+            <!-- ============================================================= -->
+            <!-- F. QUICK DOCKET TRACKER BOX                                   -->
+            <!-- ============================================================= -->
             <section id="trackBox" class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm">
                 <h4 class="text-xs font-bold uppercase tracking-wider text-postMaroon mb-3" data-en="🔍 Track Existing ClaimX Docket Status" data-hi="🔍 अपने मौजूदा डॉकेट का लाइव स्टेटस ट्रैक करें">🔍 Track Existing ClaimX Docket Status</h4>
                 <div class="flex flex-col sm:flex-row gap-2.5">
-                    <input type="text" placeholder="Enter Docket ID (e.g., CLX-2026-8941)" class="flex-1 border border-slate-300 rounded px-3 py-2 text-xs sm:text-sm focus:outline-none focus:border-postMaroon">
+                    <input type="text" placeholder="Enter Docket ID (e.g., CLX-2026-8941)" class="flex-1 border border-slate-300 rounded px-3 py-2 text-xs sm:text-sm mono-code focus:outline-none focus:border-postMaroon">
                     <button onclick="alert('Demo: Docket #CLX-2026-8941 is currently in 48-Hour Nodal SLA Waiting Period.')" class="bg-slate-900 hover:bg-black text-white text-xs font-bold px-5 py-2.5 rounded transition">
-                        TRACK STATUS
+                        <span data-en="TRACK STATUS" data-hi="स्टेटस चेक करें">TRACK STATUS</span>
                     </button>
+                </div>
+            </section>
+
+            <!-- ============================================================= -->
+            <!-- G. CIRCULAR STATUTORY BADGES CAROUSEL (Safe Custom Icons)     -->
+            <!-- ============================================================= -->
+            <section class="py-2">
+                <p class="text-center text-[11px] font-bold uppercase tracking-widest text-slate-400 mb-4" data-en="STATUTORY FRAMEWORKS & COMPLIANCE STANDARDS" data-hi="लागू कानूनी नियम एवं सुरक्षा मानक">STATUTORY FRAMEWORKS & COMPLIANCE STANDARDS</p>
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
+                    <div class="bg-white border border-slate-200 rounded-full py-2.5 px-3 flex items-center justify-center gap-2 shadow-sm">
+                        <span class="text-base">⚖️</span>
+                        <span class="text-[11px] font-extrabold text-slate-700">CP Act 2019</span>
+                    </div>
+                    <div class="bg-white border border-slate-200 rounded-full py-2.5 px-3 flex items-center justify-center gap-2 shadow-sm">
+                        <span class="text-base">🛒</span>
+                        <span class="text-[11px] font-extrabold text-slate-700">E-Com Rules</span>
+                    </div>
+                    <div class="bg-white border border-slate-200 rounded-full py-2.5 px-3 flex items-center justify-center gap-2 shadow-sm">
+                        <span class="text-base">🏦</span>
+                        <span class="text-[11px] font-extrabold text-slate-700">RBI TAT Rule</span>
+                    </div>
+                    <div class="bg-white border border-slate-200 rounded-full py-2.5 px-3 flex items-center justify-center gap-2 shadow-sm">
+                        <span class="text-base">🔒</span>
+                        <span class="text-[11px] font-extrabold text-slate-700">DPDPA 2023</span>
+                    </div>
+                    <div class="bg-white border border-slate-200 rounded-full py-2.5 px-3 flex items-center justify-center gap-2 shadow-sm">
+                        <span class="text-base">⏱️</span>
+                        <span class="text-[11px] font-extrabold text-slate-700">48-Hr SLA</span>
+                    </div>
+                    <div class="bg-white border border-slate-200 rounded-full py-2.5 px-3 flex items-center justify-center gap-2 shadow-sm">
+                        <span class="text-base">🛡️</span>
+                        <span class="text-[11px] font-extrabold text-slate-700">256-Bit SSL</span>
+                    </div>
                 </div>
             </section>
 
         </main>
     </div>
 
-    <!-- 8. FOOTER WITH MANDATORY LEGAL DISCLAIMERS -->
-    <footer class="bg-[#2B0909] text-slate-300 text-xs py-8 px-4 mt-8">
-        <div class="max-w-4xl mx-auto space-y-4">
-            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-white/10 pb-4">
-                <div>
-                    <p class="font-bold text-white text-sm">CLAIMX GRIEVANCE TECHNOLOGIES</p>
-                    <p class="text-[11px] text-slate-400">Official Domain: claimx.in | Escalation Desk: desk@claimx.in</p>
+    <!-- ================================================================= -->
+    <!-- 7. HERITAGE SKYLINE FOOTER (Exact Screenshot 2 Architectural Vibe)-->
+    <!-- ================================================================= -->
+    <footer class="bg-[#FBF7F2] border-t border-slate-300 mt-10 text-slate-700">
+        
+        <!-- Multi-Column Structured Footer Links (Screenshot 2 Layout) -->
+        <div class="max-w-5xl mx-auto px-4 pt-10 pb-6 space-y-8">
+            
+            <!-- Top Row: Brand Info + Docket Alert Subscription -->
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-6 pb-6 border-b border-slate-200">
+                <div class="md:col-span-7 space-y-2">
+                    <div class="flex items-center gap-2.5">
+                        <div class="w-8 h-8 rounded-full bg-postMaroon text-white flex items-center justify-center font-extrabold text-sm">
+                            🛡️
+                        </div>
+                        <span class="text-xl font-extrabold text-postMaroon tracking-tight">CLAIMX INDIA</span>
+                    </div>
+                    <p class="text-xs text-slate-600 max-w-xl leading-relaxed" data-en="ClaimX is where consumer rights meet automated legal technology. We empower citizens across India to draft structured grievance dossiers and route them directly to corporate Nodal Officers." data-hi="ClaimX उपभोक्ता अधिकारों और आधुनिक एआई तकनीक का संगम है। हम भारत के नागरिकों को अपनी शिकायतें सीधे कंपनियों के नोडल अधिकारियों तक पहुँचाने में सशक्त बनाते हैं।">
+                        ClaimX is where consumer rights meet automated legal technology. We empower citizens across India to draft structured grievance dossiers and route them directly to corporate Nodal Officers.
+                    </p>
                 </div>
-                <div class="flex gap-4 text-[11px] font-semibold text-amber-200">
-                    <a href="#" class="hover:underline">Terms of Use</a>
-                    <a href="#" class="hover:underline">Privacy Policy (DPDPA)</a>
-                    <a href="#" class="hover:underline">Refund Policy</a>
+
+                <div class="md:col-span-5 space-y-2">
+                    <p class="text-xs font-extrabold uppercase text-slate-900" data-en="Subscribe to Consumer Rights Alerts" data-hi="उपभोक्ता अधिकार अपडेट्स प्राप्त करें">Subscribe to Consumer Rights Alerts</p>
+                    <div class="flex">
+                        <input type="email" placeholder="Enter your email address" class="flex-1 border border-slate-300 bg-white px-3 py-2 text-xs rounded-l focus:outline-none">
+                        <button onclick="alert('Subscribed to ClaimX Consumer Rights Bulletins!')" class="bg-postMaroon hover:bg-postDark text-white text-xs font-bold px-4 py-2 rounded-r transition">
+                            Submit
+                        </button>
+                    </div>
+                    <p class="text-[11px] text-slate-500" data-en="Get updates on RBI refund rules, E-Commerce SLA mandates & nodal contacts." data-hi="RBI रिफंड नियमों और ई-कॉमर्स कानूनों की ताज़ा जानकारी पाएं।">Get updates on RBI refund rules, E-Commerce SLA mandates & nodal contacts.</p>
                 </div>
             </div>
-            <p class="text-[10px] text-slate-400 leading-relaxed">
-                <strong>Statutory Disclaimer:</strong> ClaimX is an independent private AI-powered consumer documentation and grievance routing platform. It is not affiliated with India Post, the Government of India, or any statutory regulator, nor is it a law firm. Filing complaints directly on government portals (NCH / RBI CMS) is free; ClaimX charges a nominal technology fee strictly for automated AI drafting, evidence compilation, and nodal directory tracking.
-            </p>
+
+            <!-- 4-Column Quick Links (Screenshot 2 Middle Section) -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-6 text-xs">
+                <div class="space-y-2">
+                    <h5 class="font-extrabold text-slate-900 uppercase" data-en="Quick Links" data-hi="त्वरित लिंक">Quick Links</h5>
+                    <ul class="space-y-1.5 text-slate-600">
+                        <li><a href="index.html" class="hover:text-postMaroon">Portal Home</a></li>
+                        <li><a href="#intakeForm" class="hover:text-postMaroon">File New Grievance</a></li>
+                        <li><a href="signup.html" class="hover:text-postMaroon">Citizen Registration</a></li>
+                        <li><a href="admin.html" class="hover:text-postMaroon">Officer / Admin Login</a></li>
+                    </ul>
+                </div>
+
+                <div class="space-y-2">
+                    <h5 class="font-extrabold text-slate-900 uppercase" data-en="Citizen Services" data-hi="नागरिक सेवाएं">Citizen Services</h5>
+                    <ul class="space-y-1.5 text-slate-600">
+                        <li><a href="#trackBox" class="hover:text-postMaroon">Track Docket Status</a></li>
+                        <li><a href="#noticeBoard" class="hover:text-postMaroon">Nodal Officer Matrix</a></li>
+                        <li><a href="#howItWorks" class="hover:text-postMaroon">48-Hour SLA Guide</a></li>
+                        <li><a href="#charter" class="hover:text-postMaroon">Consumer Charter</a></li>
+                    </ul>
+                </div>
+
+                <div class="space-y-2">
+                    <h5 class="font-extrabold text-slate-900 uppercase" data-en="Statutory Policies" data-hi="कानूनी नीतियां">Statutory Policies</h5>
+                    <ul class="space-y-1.5 text-slate-600">
+                        <li><a href="#disclaimer" class="hover:text-postMaroon">Terms & Conditions</a></li>
+                        <li><a href="#disclaimer" class="hover:text-postMaroon">Privacy Policy (DPDPA)</a></li>
+                        <li><a href="#disclaimer" class="hover:text-postMaroon">Refund & Cancellation</a></li>
+                        <li><a href="#disclaimer" class="hover:text-postMaroon">Non-Government Disclaimer</a></li>
+                    </ul>
+                </div>
+
+                <div class="space-y-2">
+                    <h5 class="font-extrabold text-slate-900 uppercase" data-en="Redressal Helpdesk" data-hi="संपर्क सहायता केंद्र">Redressal Helpdesk</h5>
+                    <p class="text-slate-600 font-semibold">desk@claimx.in</p>
+                    <p class="text-slate-600">support@claimx.in</p>
+                    <p class="text-[11px] text-slate-500" data-en="Working Hours: 10:00 AM to 6:00 PM (Mon-Sat)" data-hi="कार्य समय: सुबह 10:00 से शाम 6:00 बजे (सोम-शनि)">Working Hours: 10:00 AM to 6:00 PM (Mon-Sat)</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- PURE CODE SVG INDIAN HERITAGE SKYLINE (Screenshot 2 Bottom Illustration - 100% Copyright Free) -->
+        <div class="w-full overflow-hidden leading-none pt-2">
+            <svg class="w-full h-20 sm:h-28" viewBox="0 0 1200 140" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Warm Terracotta Minaret Left -->
+                <path d="M40 140V35L52 15L64 35V140H40Z" fill="#C88A5A"/>
+                <rect x="36" y="60" width="32" height="5" fill="#7B1E1E"/>
+                <rect x="38" y="95" width="28" height="5" fill="#7B1E1E"/>
+                <!-- Dome Structure -->
+                <path d="M85 140V85H175V140H85Z" fill="#8C4A32"/>
+                <path d="M105 85C105 62 155 62 155 85H105Z" fill="#682D19"/>
+                <rect x="120" y="105" width="20" height="35" rx="10" fill="#FBF7F2"/>
+                <!-- White Marble colonnade -->
+                <path d="M195 140V75H410V140H195Z" fill="#D5CFC7"/>
+                <path d="M235 75C235 52 275 52 275 75H235Z" fill="#BDB5AA"/>
+                <path d="M330 75C330 52 370 52 370 75H330Z" fill="#BDB5AA"/>
+                <rect x="285" y="92" width="35" height="48" rx="17" fill="#8E857B"/>
+                <!-- Central India Gate Style Arch Monument -->
+                <path d="M450 140V42H590V140H550V82C550 62 490 62 490 82V140H450Z" fill="#C99E67"/>
+                <rect x="440" y="32" width="160" height="12" fill="#AD804B"/>
+                <!-- Subtle Taj Silhouette -->
+                <path d="M620 140V85H740V140H620Z" fill="#E2E6E9"/>
+                <path d="M650 85C650 45 710 45 710 85H650Z" fill="#CFD6DC"/>
+                <!-- Classical Arch Palace -->
+                <path d="M770 140V55H920V140H770Z" fill="#DF9A57"/>
+                <rect x="825" y="85" width="40" height="55" rx="20" fill="#7B1E1E"/>
+                <path d="M790 55C790 38 820 38 820 55H790Z" fill="#B86B28"/>
+                <path d="M870 55C870 38 900 38 900 55H870Z" fill="#B86B28"/>
+                <!-- Right Red Fort (Lal Qila) Battlements -->
+                <path d="M945 140V68H1180V140H945Z" fill="#9E2A2B"/>
+                <path d="M975 68C975 42 1020 42 1020 68H975Z" fill="#7B1E1E"/>
+                <path d="M1095 68C1095 42 1140 42 1140 68H1095Z" fill="#7B1E1E"/>
+                <rect x="940" y="45" width="12" height="95" fill="#7B1E1E"/>
+                <rect x="1050" y="45" width="12" height="95" fill="#7B1E1E"/>
+                <rect x="1165" y="45" width="12" height="95" fill="#7B1E1E"/>
+            </svg>
+        </div>
+
+        <!-- Bottom Dark Legal & Mandatory Disclaimer Bar (100% Legal Safety) -->
+        <div id="disclaimer" class="bg-[#1F0909] text-slate-300 text-[11px] py-6 px-4">
+            <div class="max-w-5xl mx-auto space-y-3">
+                <div class="flex flex-col sm:flex-row justify-between items-center gap-2 border-b border-white/10 pb-3">
+                    <span class="font-bold text-white">© 2026 CLAIMX GRIEVANCE TECHNOLOGIES (claimx.in) • All Rights Reserved.</span>
+                    <span class="text-amber-300 font-semibold" data-en="Independent Private Consumer Documentation Portal" data-hi="स्वतंत्र प्राइवेट उपभोक्ता सहायता पोर्टल">Independent Private Consumer Documentation Portal</span>
+                </div>
+                <p class="text-[10px] text-slate-400 leading-relaxed" data-en="Mandatory Legal & Non-Government Disclaimer: ClaimX (claimx.in) is a privately operated AI-assisted consumer documentation and grievance routing platform. It is NOT affiliated with, endorsed by, or connected to the Government of India, India Post, National Consumer Helpline (NCH), RBI, or any state/central ministry, nor does it use any protected State Emblem. Filing complaints directly on government portals is free; ClaimX charges a nominal technology fee strictly for automated AI notice drafting, dossier compilation, and SLA tracking software." data-hi="अनिवार्य कानूनी अस्वीकरण (Disclaimer): ClaimX (claimx.in) एक स्वतंत्र प्राइवेट टेक्नोलॉजी प्लेटफॉर्म है। इसका भारत सरकार, भारतीय डाक (India Post), राष्ट्रीय उपभोक्ता हेल्पलाइन (NCH), RBI या किसी भी सरकारी मंत्रालय से कोई संबंध नहीं है। सरकारी पोर्टल पर सीधे शिकायत करना निःशुल्क है; ClaimX का शुल्क केवल एआई (AI) द्वारा कानूनी ड्राफ्ट तैयार करने, नोडल डायरेक्टरी और सॉफ्टवेयर ट्रैकिंग सेवा के लिए है।">
+                    <strong>Mandatory Legal & Non-Government Disclaimer:</strong> ClaimX (claimx.in) is a privately operated AI-assisted consumer documentation and grievance routing platform. It is NOT affiliated with, endorsed by, or connected to the Government of India, India Post, National Consumer Helpline (NCH), RBI, or any state/central ministry, nor does it use any protected State Emblem. Filing complaints directly on government portals is free; ClaimX charges a nominal technology fee strictly for automated AI notice drafting, dossier compilation, and SLA tracking software.
+                </p>
+            </div>
         </div>
     </footer>
 
-    <!-- 9. FLOATING AI BOT BUTTON (Bottom Right - Exact Match to Screenshot) -->
+    <!-- ================================================================= -->
+    <!-- 8. FLOATING AI BOT BUTTON (Bottom Right)                          -->
+    <!-- ================================================================= -->
     <button onclick="document.getElementById('intakeForm').scrollIntoView({behavior: 'smooth'})" title="ClaimX AI Assistant" class="fixed bottom-5 right-5 z-40 w-14 h-14 rounded-full bg-white p-1 shadow-xl border-2 border-postMaroon flex items-center justify-center hover:scale-105 transition">
         <div class="w-full h-full rounded-full bg-[#D93829] text-white flex items-center justify-center">
-            <!-- Robot SVG Icon -->
             <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M12 2a1 1 0 011 1v1.07A7.002 7.002 0 0119 11v5a3 3 0 01-3 3H8a3 3 0 01-3-3v-5a7.002 7.002 0 016-6.93V3a1 1 0 011-1zm-3 9a1.5 1.5 0 100 3 1.5 1.5 0 000-3zm6 0a1.5 1.5 0 100 3 1.5 1.5 0 000-3zm-5 5h4v1.5h-4V16z"/>
             </svg>
         </div>
     </button>
 
-    <!-- INTERACTIVE SCRIPTS (Language Switcher, Modal, Ticker Pause) -->
+    <!-- ================================================================= -->
+    <!-- 9. INTERACTIVE SCRIPTS (Language Modal, Font Resizer, Ticker)     -->
+    <!-- ================================================================= -->
     <script>
+        let currentFontScale = 100;
+
         function closeModal() {
             document.getElementById('langModal').classList.add('hidden');
         }
@@ -419,12 +803,18 @@
             });
             document.getElementById('searchInput').placeholder = lang === 'hi' 
                 ? 'कंपनी, बैंक या डॉकेट नंबर खोजें...' 
-                : 'Search company, bank, or docket number...';
+                : 'Search company, bank, or docket...';
+            document.getElementById('topLangLabel').innerText = lang === 'hi' ? 'English' : 'हिन्दी';
             closeModal();
         }
         function toggleTicker() {
             const ticker = document.getElementById('tickerText');
             ticker.classList.toggle('ticker-paused');
+        }
+        function adjustFontSize(step) {
+            if (step === 0) currentFontScale = 100;
+            else currentFontScale = Math.min(115, Math.max(90, currentFontScale + (step * 5)));
+            document.documentElement.style.fontSize = currentFontScale + '%';
         }
         function handleFormSubmit(e) {
             e.preventDefault();
