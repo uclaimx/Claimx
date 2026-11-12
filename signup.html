@@ -145,14 +145,14 @@
                         </div>
                     </div>
 
-                    <!-- 3. OTP Verification Drawer (STRICT 4-DIGIT) -->
+                    <!-- 3. OTP Verification Drawer (STRICT 6-DIGIT) -->
                     <div id="otpBox" class="hidden bg-postLight border border-postMaroon/30 rounded-lg p-3.5 space-y-2.5">
                         <div class="flex justify-between items-center">
-                            <label class="text-xs font-bold text-postMaroon" data-en="Enter 4-Digit Mobile OTP *" data-hi="4-अंकों का ओटीपी (OTP) दर्ज करें *">Enter 4-Digit Mobile OTP *</label>
+                            <label class="text-xs font-bold text-postMaroon" data-en="Enter 6-Digit Mobile OTP *" data-hi="6-अंकों का ओटीपी (OTP) दर्ज करें *">Enter 6-Digit Mobile OTP *</label>
                             <span class="text-[10px] font-bold text-emerald-700">via 2Factor SMS</span>
                         </div>
                         <div class="flex gap-2">
-                            <input type="text" id="otpInput" maxlength="4" inputmode="numeric" placeholder="• • • •" class="w-full border border-slate-300 border-b-2 border-b-postMaroon rounded px-3 py-2 text-center tracking-widest font-bold text-sm focus:outline-none bg-white mono-code">
+                            <input type="text" id="otpInput" maxlength="6" inputmode="numeric" placeholder="• • • • • •" class="w-full border border-slate-300 border-b-2 border-b-postMaroon rounded px-3 py-2 text-center tracking-widest font-bold text-sm focus:outline-none bg-white mono-code">
                             <button type="button" id="verifyOtpBtn" onclick="window.verifyOTP()" class="bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold px-4 py-2 rounded transition shrink-0">
                                 <span data-en="Verify" data-hi="सत्यापित करें">Verify</span>
                             </button>
@@ -224,7 +224,7 @@
     </footer>
 
     <!-- ================================================================= -->
-    <!-- 6. FIREBASE & 2FACTOR VERCEL OTP LOGIC (STRICT MODE)              -->
+    <!-- 6. FIREBASE & 2FACTOR VERCEL OTP LOGIC (STRICT 6-DIGIT MODE)      -->
     <!-- ================================================================= -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
@@ -328,7 +328,7 @@
                     document.getElementById('otpBox').classList.remove('hidden');
                     sendText.innerText = 'Resend OTP';
                     document.getElementById('mobileNo').readOnly = true;
-                    showAlert(`📲 4-Digit OTP sent to +91-${mobile} via SMS.`, false);
+                    showAlert(`📲 6-Digit OTP sent to +91-${mobile} via SMS.`, false);
                 } else {
                     throw new Error(data.error || 'Failed to send OTP');
                 }
@@ -339,19 +339,19 @@
             }
         };
 
-        // ✔ STEP 2: VERIFY STRICT 4-DIGIT OTP via Vercel Backend
+        // ✔ STEP 2: VERIFY STRICT 6-DIGIT OTP
         window.verifyOTP = async function() {
             const entered = document.getElementById('otpInput').value.trim();
             
-            // फ्रंटएंड पर भी सख्ती: सिर्फ 4-डिजिट ही एक्सेप्ट होगा
-            if (!isOtpSent || entered.length !== 4) {
-                showAlert('❌ Please enter the complete 4-digit OTP.', true);
+            // फ्रंटएंड चेक: सिर्फ 6 अंक
+            if (!isOtpSent || entered.length !== 6) {
+                showAlert('❌ Please enter the exact 6-digit OTP received via SMS.', true); 
                 return;
             }
 
             const btn = document.getElementById('verifyOtpBtn');
-            btn.disabled = true;
-            btn.innerText = 'Verifying...';
+            btn.disabled = true; 
+            btn.innerText = 'Checking...';
 
             try {
                 const res = await fetch('/api/auth', {
@@ -361,21 +361,20 @@
                 });
                 const data = await res.json();
 
-                // असली वेरिफिकेशन (कोई डमी पास नहीं)
-                if (data.success) { 
+                if (data.success) {
                     isOtpVerified = true;
                     document.getElementById('otpInput').disabled = true;
                     document.getElementById('verifyOtpBtn').classList.add('hidden');
                     document.getElementById('otpVerifiedBadge').classList.remove('hidden');
-                    showAlert('✔ Mobile Verified! Now set a password and click Register.', false);
+                    showAlert('✔ Mobile Verified! Enter password and click Register.', false);
                 } else {
-                    showAlert('❌ Invalid or Expired OTP! Please try again.', true);
-                    btn.disabled = false;
+                    showAlert('❌ Invalid or Expired OTP! Try again.', true);
+                    btn.disabled = false; 
                     btn.innerText = 'Verify';
                 }
             } catch (err) {
-                showAlert('❌ Error verifying OTP via server. Please check internet connection.', true);
-                btn.disabled = false;
+                showAlert('❌ Verification error via server.', true);
+                btn.disabled = false; 
                 btn.innerText = 'Verify';
             }
         };
