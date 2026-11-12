@@ -1,5 +1,5 @@
 // File Location: api/auth.js
-// Purpose: Strictly handles 6-Digit 2Factor SMS OTP Sending & Verification
+// Purpose: Strictly handles 6-Digit 2Factor SMS OTP Sending & Verification (Mismatch Fix)
 
 export default async function handler(req, res) {
   // 1. सुरक्षा जाँच: सिर्फ POST रिक्वेस्ट
@@ -9,7 +9,7 @@ export default async function handler(req, res) {
 
   const { action, mobile, otp, sessionId } = req.body;
   
-  // 2. आपकी 2Factor API Key
+  // 2. आपकी 2Factor API Key (यहाँ अपनी असली API Key रखें)
   const TWOFACTOR_API_KEY = process.env.TWOFACTOR_API_KEY || "76465719-2e4e-11f1-ae4a-0200cd936042";
 
   try {
@@ -56,10 +56,12 @@ export default async function handler(req, res) {
       const response = await fetch(url);
       const data = await response.json();
 
-      // 2Factor का स्टेटस चेक करें
-      if (data.Status === 'Success' && data.Details === 'OTP Matched') {
+      // 💡 MISMATCH FIX: सिर्फ Status === 'Success' चेक करें, Details के टेक्स्ट पर निर्भर न रहें। 
+      // 2Factor API जब OTP सही होता है, तो Status 'Success' ही भेजता है।
+      if (data.Status === 'Success') {
         return res.status(200).json({ success: true, message: 'OTP Verified Successfully' });
       } else {
+        // अगर Status 'Error' है, तो डिटेल्स में कारण (जैसे "OTP Mismatch" या "Expired") होगा।
         return res.status(400).json({ success: false, error: data.Details || 'Invalid or Expired OTP' });
       }
     }
